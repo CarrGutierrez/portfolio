@@ -6,6 +6,28 @@ import { useEffect, useRef, useState } from "react";
 const certificates = [
   {
     id: 1,
+    title: "Certificate of Completion",
+    issuer: "Certificate Archive",
+    date: "2025",
+    tag: "certificate of completion",
+    summary: "Completion credential.",
+    accent: "from-lime-300/70 via-emerald-300/30 to-transparent",
+    border: "border-lime-200/20",
+    image: "/assets/completion.jpg",
+  },
+  {
+    id: 2,
+    title: "Certificate of Recognition",
+    issuer: "Certificate Archive",
+    date: "2025",
+    tag: "certificate of recognition",
+    summary: "Recognition credential.",
+    accent: "from-red-300/70 via-rose-300/30 to-transparent",
+    border: "border-red-200/20",
+    image: "/assets/CERTIFICATE system.jpg",
+  },
+  {
+    id: 3,
     title: "Advanced Seminar Certification",
     issuer: "Certificate Archive",
     date: "2025",
@@ -16,7 +38,7 @@ const certificates = [
     image: "/assets/advanceSeminar.png",
   },
   {
-    id: 2,
+    id: 4,
     title: "Advanced Seminar II Certification",
     issuer: "Certificate Archive",
     date: "2025",
@@ -27,7 +49,7 @@ const certificates = [
     image: "/assets/advanceSeminar2.png",
   },
   {
-    id: 3,
+    id: 5,
     title: "Blockchain Technology Certification",
     issuer: "Certificate Archive",
     date: "2025",
@@ -38,7 +60,7 @@ const certificates = [
     image: "/assets/blockchain.jpg",
   },
   {
-    id: 4,
+    id: 6,
     title: "Startup Innovation Certification",
     issuer: "Certificate Archive",
     date: "2025",
@@ -49,7 +71,7 @@ const certificates = [
     image: "/assets/startup.jpg",
   },
   {
-    id: 5,
+    id: 7,
     title: "Vesta Poster Design Recognition",
     issuer: "Certificate Archive",
     date: "2025",
@@ -60,7 +82,7 @@ const certificates = [
     image: "/assets/vestaPoster.jpg",
   },
   {
-    id: 6,
+    id: 8,
     title: "Vesta Prototype Recognition Award",
     issuer: "Certificate Archive",
     date: "2025",
@@ -71,10 +93,10 @@ const certificates = [
     image: "/assets/vestaPrototype.jpg",
   },
   {
-    id: 7,
+    id: 9,
     title: "Introduction to Packet Tracer",
     issuer: "Certificate Archive",
-    date: "2025",
+    date: "2024",
     tag: "networking",
     summary: "Networking fundamentals credential.",
     accent: "from-blue-300/70 via-sky-300/30 to-transparent",

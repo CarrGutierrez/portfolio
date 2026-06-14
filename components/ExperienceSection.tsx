@@ -3,20 +3,30 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const experiences = [
+type Experience = {
+  id: number;
+  title: string;
+  role: string;
+  year: string;
+  logo: string;
+  color: "magenta" | "blue" | "multi" | "cyan" | "holyChild";
+  href: string;
+};
+
+const experiences: Experience[] = [
   {
     id: 1,
-    title: "dnsc 🎓",
-    role: "bsit student",
+    title: "DNSC",
+    role: "Student",
     year: "/ now",
     logo: "/assets/dnsc.jpg",
-    color: "pink",
+    color: "magenta",
     href: "#",
   },
   {
     id: 2,
-    title: "rentopia 🏠",
-    role: "product designer",
+    title: "Rentopia",
+    role: "UI/UX Designer",
     year: "/ 2024",
     logo: "/assets/rentopia.png",
     color: "blue",
@@ -24,40 +34,44 @@ const experiences = [
   },
   {
     id: 3,
-    title: "HrNexus 🔎",
-    role: "frontend developer",
+    title: "HRNexus",
+    role: "UI/UX Designer",
     year: "/ 2025",
-    logo: "🔎",
-    color: "yellow",
+    logo: "H",
+    color: "multi",
     href: "#",
   },
   {
     id: 4,
-    title: "mcpi 🎓",
-    role: "ict student",
+    title: "Holy Child",
+    role: "Internship",
     year: "/ 2022",
-    logo: "/assets/mcpi.png",
-    color: "cyan",
+    logo: "/assets/hccddn.png",
+    color: "holyChild",
     href: "#",
   },
 ];
 
-const colorClasses = {
-  pink: {
-    glow: "bg-gradient-to-br from-emerald-400 via-emerald-600 to-emerald-800",
-    bg: "bg-gradient-to-br from-emerald-400 via-emerald-600 to-emerald-800",
+const themes = {
+  magenta: {
+    panel: "from-emerald-300 via-emerald-500 to-emerald-700",
+    glow: "from-emerald-300/35 via-emerald-500/20 to-emerald-800/15",
   },
   blue: {
-    glow: "bg-gradient-to-br from-red-100 via-red-300 to-red-500",
-    bg: "bg-gradient-to-br from-red-100 via-red-300 to-red-500",
+    panel: "from-rose-200 via-red-400 to-rose-700",
+    glow: "from-rose-200/30 via-red-400/20 to-rose-800/15",
   },
-  yellow: {
-    glow: "bg-yellow-500",
-    bg: "bg-yellow-500",
+  multi: {
+    panel: "from-amber-300 via-yellow-500 to-amber-700",
+    glow: "from-amber-300/30 via-yellow-500/18 to-amber-800/15",
   },
   cyan: {
-    glow: "bg-gradient-to-br from-sky-300 via-blue-400 to-blue-600",
-    bg: "bg-gradient-to-br from-sky-300 via-blue-400 to-blue-600",
+    panel: "from-sky-200 via-blue-400 to-indigo-700",
+    glow: "from-sky-200/30 via-blue-400/18 to-indigo-800/15",
+  },
+  holyChild: {
+    panel: "from-white via-slate-100 to-slate-300",
+    glow: "from-white/30 via-slate-200/20 to-slate-400/12",
   },
 };
 
@@ -74,146 +88,130 @@ export default function ExperienceSection() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -80px 0px" },
     );
 
     const cards = sectionRef.current?.querySelectorAll(".experience-card");
-    cards?.forEach((card) => {
-      observer.observe(card);
-    });
+    cards?.forEach((card) => observer.observe(card));
 
     return () => observer.disconnect();
   }, []);
 
+  const leftColumn = experiences.filter((_, index) => index % 2 === 0);
+  const rightColumn = experiences.filter((_, index) => index % 2 !== 0);
+
   return (
     <section ref={sectionRef} className="py-12 sm:py-16">
-      <h2 className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.6px] text-white/90 lowercase mb-8 sm:mb-12 text-center">
+      <h2 className="mb-8 text-center text-[22px] font-extrabold tracking-[-0.6px] text-white/90 sm:mb-12 sm:text-[24px]">
         Experience
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[800px] mx-auto">
-        <div className="flex flex-col gap-4">
-          {experiences.slice(0, 2).map((exp, index) => (
+
+      <div className="mx-auto grid max-w-[560px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+        <div className="flex flex-col gap-6 md:gap-8">
+          {leftColumn.map((exp, index) => (
             <a
               key={exp.id}
               href={exp.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="experience-card opacity-0 translate-y-12 bg-[rgb(20,21,21)] border border-white/[0.08] rounded-[20px] p-4 no-underline text-inherit transition-all duration-700 shadow-[0px_15px_40px_20px_rgba(0,0,0,0.2)] hover:-translate-y-1 hover:shadow-[0px_20px_50px_25px_rgba(0,0,0,0.3)]"
-              style={{
-                transitionDelay: `${index * 200}ms`,
-              }}
+              className="experience-card group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0c0f13] p-4 text-inherit no-underline opacity-0 translate-y-12 shadow-[0_22px_70px_rgba(0,0,0,0.42)] transition-all duration-700 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_90px_rgba(0,0,0,0.52)]"
+              style={{ transitionDelay: `${index * 160}ms` }}
             >
-              <div className="relative w-full aspect-[1.8] rounded-[16px] overflow-hidden mb-3">
-                {/* Glow effect */}
-                <div
-                  className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 w-4/5 h-3/5 blur-[60px] mix-blend-hard-light opacity-60 ${
-                    colorClasses[exp.color as keyof typeof colorClasses].glow
-                  }`}
-                />
+              <div
+                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${themes[exp.color].glow} opacity-70 blur-2xl`}
+              />
 
-                {/* Background */}
+              <div className="relative mb-4 aspect-[1.5] overflow-hidden rounded-[18px] border border-white/10">
                 <div
-                  className={`absolute inset-0 ${
-                    colorClasses[exp.color as keyof typeof colorClasses].bg
-                  }`}
+                  className={`absolute inset-0 bg-gradient-to-br ${themes[exp.color].panel}`}
                 />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.28),transparent_45%)]" />
 
-                {/* Logo */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[36px] z-10">
-                  {typeof exp.logo === "string" && exp.logo.startsWith("/") ? (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {exp.logo.startsWith("/") ? (
                     <Image
                       src={exp.logo}
                       alt={exp.title}
-                      width={
-                        exp.color === "pink"
-                          ? 140
-                          : exp.color === "blue"
-                          ? 160
-                          : 100
-                      }
-                      height={
-                        exp.color === "pink"
-                          ? 140
-                          : exp.color === "blue"
-                          ? 160
-                          : 100
-                      }
-                      className="object-contain rounded-[12px] block"
+                      width={110}
+                      height={110}
+                      className="rounded-[14px] object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
                     />
                   ) : (
-                    <span>{exp.logo}</span>
+                    <span className="text-[62px] font-extrabold text-white/90">
+                      {exp.logo}
+                    </span>
                   )}
                 </div>
+
+                <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[linear-gradient(115deg,transparent_20%,rgba(255,255,255,0.2)_50%,transparent_80%)]" />
               </div>
 
-              <div>
-                <h3 className="text-[16px] sm:text-[17px] font-extrabold mb-3 text-white/90 lowercase">
-                  {exp.title}
-                </h3>
-                <div className="flex justify-between items-end gap-3">
-                  <p className="text-[10px] font-semibold tracking-[1.5px] uppercase text-white/30 flex-1">
-                    {exp.role}
-                  </p>
-                  <p className="text-[13px] sm:text-[14px] text-white/80 shrink-0">{exp.year}</p>
-                </div>
+              <h3 className="text-[22px] font-extrabold leading-[1.05] text-white/92 sm:text-[24px]">
+                {exp.title}
+              </h3>
+
+              <div className="mt-5 flex items-end justify-between gap-4">
+                <p className="text-[9px] font-semibold uppercase tracking-[1.6px] text-white/28 sm:text-[10px]">
+                  {exp.role}
+                </p>
+                <p className="shrink-0 text-[16px] font-semibold text-white/82 sm:text-[18px]">
+                  {exp.year}
+                </p>
               </div>
             </a>
           ))}
         </div>
 
-        <div className="flex flex-col gap-4">
-          {experiences.slice(2).map((exp, index) => (
+        <div className="flex flex-col gap-5 md:gap-6 md:pt-8">
+          {rightColumn.map((exp, index) => (
             <a
               key={exp.id}
               href={exp.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="experience-card opacity-0 translate-y-12 bg-[rgb(20,21,21)] border border-white/[0.08] rounded-[20px] p-4 no-underline text-inherit transition-all duration-700 shadow-[0px_15px_40px_20px_rgba(0,0,0,0.2)] hover:-translate-y-1 hover:shadow-[0px_20px_50px_25px_rgba(0,0,0,0.3)]"
-              style={{
-                transitionDelay: `${(index + 2) * 200}ms`,
-              }}
+              className="experience-card group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0c0f13] p-4 text-inherit no-underline opacity-0 translate-y-12 shadow-[0_22px_70px_rgba(0,0,0,0.42)] transition-all duration-700 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_90px_rgba(0,0,0,0.52)]"
+              style={{ transitionDelay: `${(index + 2) * 160}ms` }}
             >
-              <div className="relative w-full aspect-[1.8] rounded-[16px] overflow-hidden mb-3">
-                {/* Glow effect */}
-                <div
-                  className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 w-4/5 h-3/5 blur-[60px] mix-blend-hard-light opacity-50 ${
-                    colorClasses[exp.color as keyof typeof colorClasses].glow
-                  }`}
-                />
+              <div
+                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${themes[exp.color].glow} opacity-70 blur-2xl`}
+              />
 
-                {/* Background */}
+              <div className="relative mb-4 aspect-[1.5] overflow-hidden rounded-[18px] border border-white/10">
                 <div
-                  className={`absolute inset-0 ${
-                    colorClasses[exp.color as keyof typeof colorClasses].bg
-                  }`}
+                  className={`absolute inset-0 bg-gradient-to-br ${themes[exp.color].panel}`}
                 />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.28),transparent_45%)]" />
 
-                {/* Logo */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[36px] z-10">
-                  {typeof exp.logo === "string" && exp.logo.startsWith("/") ? (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {exp.logo.startsWith("/") ? (
                     <Image
                       src={exp.logo}
                       alt={exp.title}
-                      width={exp.color === "cyan" ? 100 : 100}
-                      height={exp.color === "cyan" ? 100 : 100}
-                      className="object-contain rounded-[12px] block"
+                      width={110}
+                      height={110}
+                      className="rounded-[14px] object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]"
                     />
                   ) : (
-                    <span>{exp.logo}</span>
+                    <span className="text-[62px] font-extrabold text-white/90">
+                      {exp.logo}
+                    </span>
                   )}
                 </div>
+
+                <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[linear-gradient(115deg,transparent_20%,rgba(255,255,255,0.2)_50%,transparent_80%)]" />
               </div>
 
-              <div>
-                <h3 className="text-[16px] sm:text-[17px] font-extrabold mb-3 text-white/90 lowercase">
-                  {exp.title}
-                </h3>
-                <div className="flex justify-between items-end gap-3">
-                  <p className="text-[10px] font-semibold tracking-[1.5px] uppercase text-white/30 flex-1">
-                    {exp.role}
-                  </p>
-                  <p className="text-[13px] sm:text-[14px] text-white/80 shrink-0">{exp.year}</p>
-                </div>
+              <h3 className="text-[22px] font-extrabold leading-[1.05] text-white/92 sm:text-[24px]">
+                {exp.title}
+              </h3>
+
+              <div className="mt-5 flex items-end justify-between gap-4">
+                <p className="text-[9px] font-semibold uppercase tracking-[1.6px] text-white/28 sm:text-[10px]">
+                  {exp.role}
+                </p>
+                <p className="shrink-0 text-[16px] font-semibold text-white/82 sm:text-[18px]">
+                  {exp.year}
+                </p>
               </div>
             </a>
           ))}
