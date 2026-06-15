@@ -19,7 +19,7 @@ const graphics = [
     tags: ["sports", "basketball", "poster"],
   },
   {
-    src: "/assets/lakers vs suns final.png",
+    src: "/assets/lakers vs suns.png",
     alt: "Lakers vs Suns Match Graphics",
     category: "sports graphics",
     title: "lakers vs suns matchup",
@@ -76,7 +76,7 @@ export default function GraphicsSection() {
       }
       setCurrentViewIndex(0); // Reset to first view when changing projects
     },
-    [lightboxIndex]
+    [lightboxIndex],
   );
 
   const switchView = useCallback((viewIndex: number) => {
@@ -243,7 +243,7 @@ export default function GraphicsSection() {
       setTimeout(checkScrollability, 300);
       setTimeout(checkScrollability, 600);
     },
-    [checkScrollability]
+    [checkScrollability],
   );
 
   return (
@@ -304,7 +304,7 @@ export default function GraphicsSection() {
                 />
 
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-black/20 flex flex-col justify-end p-4 sm:p-6 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all duration-400 backdrop-blur-[2px]">
+                <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/40 to-black/20 flex flex-col justify-end p-4 sm:p-6 opacity-0 group-hover:opacity-100 transition-all duration-400">
                   <div className="sm:transform sm:translate-y-4 sm:group-hover:translate-y-0 transition-transform duration-400">
                     <span className="text-[11px] font-semibold tracking-[1.8px] uppercase text-white/80 mb-3 block">
                       {graphic.category}
@@ -436,21 +436,151 @@ export default function GraphicsSection() {
         )}
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox / Bottom Sheet Modal */}
       {lightboxIndex !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/95 backdrop-blur-sm transition-opacity duration-300"
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-300"
             onClick={closeLightbox}
           />
 
-          {/* Modal Content */}
-          <div className="relative w-full h-full flex flex-col md:flex-row">
+          {/* ── MOBILE: Bottom Sheet ── */}
+          <div
+            className="relative w-full md:hidden bg-[#111] rounded-t-[28px] flex flex-col animate-slide-up"
+            style={{ maxHeight: "92dvh" }}
+          >
+            {/* Header - fixed height */}
+            <div className="flex-shrink-0 relative flex items-center justify-between px-5 pt-4 pb-3">
+              <div className="w-10 h-1 rounded-full bg-white/20 absolute left-1/2 -translate-x-1/2 top-3" />
+              <div className="flex-1" />
+              <button
+                onClick={closeLightbox}
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white"
+              >
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M12 4L4 12M4 4L12 12"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {/* Everything else scrolls */}
+            <div className="flex-1 overflow-y-auto">
+              {/* Image */}
+              <div className="px-4 pb-4 flex justify-center">
+                <div className="relative w-full flex items-center justify-center">
+                  <Image
+                    src={getCurrentImageSrc()}
+                    alt={getCurrentImageAlt()}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    className="w-auto h-auto max-w-full object-contain rounded-[16px]"
+                    style={{ maxHeight: "42vh" }}
+                    quality={95}
+                    priority
+                  />
+                  {graphics[lightboxIndex].views &&
+                    graphics[lightboxIndex].views!.length > 1 && (
+                      <div className="absolute top-3 left-3 flex gap-2">
+                        {graphics[lightboxIndex].views!.map(
+                          (view, viewIndex) => (
+                            <button
+                              key={viewIndex}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                switchView(viewIndex);
+                              }}
+                              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black" : "bg-black/50 text-white border border-white/20"}`}
+                            >
+                              {view.label}
+                            </button>
+                          ),
+                        )}
+                      </div>
+                    )}
+                </div>
+              </div>
+
+              {/* Info */}
+              <div className="px-6 pt-4 border-t border-white/[0.08]">
+                <span className="text-[10px] font-semibold tracking-[2px] uppercase text-white/50 mb-1 block">
+                  {graphics[lightboxIndex].category}
+                </span>
+                <h2 className="text-[22px] font-extrabold text-white mb-4 lowercase leading-tight">
+                  {graphics[lightboxIndex].title}
+                </h2>
+                <div className="space-y-3 mb-4">
+                  <div className="flex justify-between items-center py-2 border-b border-white/10">
+                    <span className="text-sm text-white/50">Year</span>
+                    <span className="text-sm text-white/90">2025</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-white/10">
+                    <span className="text-sm text-white/50">Tools</span>
+                    <span className="text-sm text-white/90">
+                      {getProjectTools(lightboxIndex)}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {graphics[lightboxIndex].tags.map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="px-3 py-1 text-xs font-medium uppercase tracking-wider bg-white/10 text-white/60 rounded-full border border-white/10"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-3 pb-10">
+                  <button
+                    onClick={() => navigateLightbox("prev")}
+                    disabled={lightboxIndex === 0}
+                    className="flex-1 py-3 rounded-full border border-white/15 text-white/60 text-sm disabled:opacity-30 flex items-center justify-center gap-2"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                      <path
+                        d="M12.5 15L7.5 10L12.5 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    Prev
+                  </button>
+                  <button
+                    onClick={() => navigateLightbox("next")}
+                    disabled={lightboxIndex === graphics.length - 1}
+                    className="flex-1 py-3 rounded-full border border-white/15 text-white/60 text-sm disabled:opacity-30 flex items-center justify-center gap-2"
+                  >
+                    Next
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                      <path
+                        d="M7.5 15L12.5 10L7.5 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── DESKTOP: Full lightbox ── */}
+          <div className="relative w-full h-full hidden md:flex">
             {/* Main Image Area */}
-            <div className="flex-1 relative overflow-hidden min-h-0">
+            <div className="flex-1 relative overflow-hidden">
               <div
-                className="absolute inset-0 flex items-start justify-center px-4 md:px-0"
+                className="absolute inset-0 flex items-start justify-center"
                 style={{
                   paddingTop: getImagePositioning().paddingTop,
                   paddingBottom: getImagePositioning().paddingBottom,
@@ -479,8 +609,6 @@ export default function GraphicsSection() {
                     quality={95}
                     priority
                   />
-
-                  {/* View Navigation for Multi-View Items */}
                   {graphics[lightboxIndex].views &&
                     graphics[lightboxIndex].views!.length > 1 && (
                       <div className="absolute top-4 left-4 flex gap-2">
@@ -492,15 +620,11 @@ export default function GraphicsSection() {
                                 e.stopPropagation();
                                 switchView(viewIndex);
                               }}
-                              className={`rounded-full px-3 py-2 text-xs sm:px-4 sm:text-sm font-medium transition-all duration-200 ${
-                                currentViewIndex === viewIndex
-                                  ? "bg-white text-black"
-                                  : "bg-black/50 text-white border border-white/20 hover:bg-white/20"
-                              }`}
+                              className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black" : "bg-black/50 text-white border border-white/20 hover:bg-white/20"}`}
                             >
                               {view.label}
                             </button>
-                          )
+                          ),
                         )}
                       </div>
                     )}
@@ -509,16 +633,14 @@ export default function GraphicsSection() {
             </div>
 
             {/* Info Sidebar */}
-            <div className="w-full md:w-80 max-h-[42vh] md:max-h-full overflow-y-auto bg-gradient-to-b from-black/80 to-black/90 backdrop-blur-md p-5 md:p-8 flex flex-col justify-between">
+            <div className="w-80 bg-gradient-to-b from-black/80 to-black/90 backdrop-blur-md p-8 flex flex-col justify-between">
               <div>
                 <span className="text-xs font-semibold tracking-[2px] uppercase text-white/60 mb-4 block">
                   {graphics[lightboxIndex].category}
                 </span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-5 md:mb-6 lowercase leading-tight">
+                <h2 className="text-3xl font-extrabold text-white mb-6 lowercase leading-tight">
                   {graphics[lightboxIndex].title}
                 </h2>
-
-                {/* Project Details */}
                 <div className="space-y-4 mb-8">
                   <div className="flex justify-between items-center py-2 border-b border-white/10">
                     <span className="text-sm text-white/60">Year</span>
@@ -537,8 +659,6 @@ export default function GraphicsSection() {
                     </span>
                   </div>
                 </div>
-
-                {/* Tags */}
                 <div className="mb-8">
                   <h3 className="text-sm font-semibold text-white/80 mb-3">
                     Skills
@@ -554,8 +674,6 @@ export default function GraphicsSection() {
                     ))}
                   </div>
                 </div>
-
-                {/* Color Palette */}
                 <div className="mb-8">
                   <h3 className="text-sm font-semibold text-white/80 mb-3">
                     Color Palette
@@ -568,13 +686,10 @@ export default function GraphicsSection() {
                   </div>
                 </div>
               </div>
-
-              {/* Navigation Info */}
               <div className="space-y-4">
                 <div className="text-sm text-white/60">
                   Project {lightboxIndex + 1} of {graphics.length}
                 </div>
-
                 <div className="space-y-2 text-xs text-white/50">
                   <div className="flex items-center gap-2">
                     <div className="w-1 h-1 bg-white/40 rounded-full" />
@@ -588,11 +703,11 @@ export default function GraphicsSection() {
               </div>
             </div>
 
-            {/* Navigation Arrows */}
+            {/* Desktop Nav Arrows */}
             {lightboxIndex > 0 && (
               <button
                 onClick={() => navigateLightbox("prev")}
-                className="absolute left-3 top-[32%] -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hidden md:flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
@@ -605,11 +720,10 @@ export default function GraphicsSection() {
                 </svg>
               </button>
             )}
-
             {lightboxIndex < graphics.length - 1 && (
               <button
                 onClick={() => navigateLightbox("next")}
-                className="absolute right-3 top-[32%] -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hidden md:flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200"
               >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path
@@ -626,7 +740,7 @@ export default function GraphicsSection() {
             {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-200"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path

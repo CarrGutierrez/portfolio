@@ -10,7 +10,8 @@ type Experience = {
   year: string;
   logo: string;
   color: "magenta" | "blue" | "multi" | "cyan" | "holyChild";
-  href: string;
+  logoSize?: number;
+  logoBg?: boolean;
 };
 
 const experiences: Experience[] = [
@@ -21,7 +22,6 @@ const experiences: Experience[] = [
     year: "/ now",
     logo: "/assets/dnsc.jpg",
     color: "magenta",
-    href: "#",
   },
   {
     id: 2,
@@ -30,16 +30,16 @@ const experiences: Experience[] = [
     year: "/ 2024",
     logo: "/assets/rentopia.png",
     color: "blue",
-    href: "#",
   },
   {
     id: 3,
     title: "HRNexus",
     role: "UI/UX Designer",
     year: "/ 2025",
-    logo: "H",
+    logo: "/assets/hrnexuslogo.png",
     color: "multi",
-    href: "#",
+    logoSize: 350,
+    logoBg: true,
   },
   {
     id: 4,
@@ -48,7 +48,6 @@ const experiences: Experience[] = [
     year: "/ 2022",
     logo: "/assets/hccddn.png",
     color: "holyChild",
-    href: "#",
   },
 ];
 
@@ -62,8 +61,8 @@ const themes = {
     glow: "from-rose-200/30 via-red-400/20 to-rose-800/15",
   },
   multi: {
-    panel: "from-amber-300 via-yellow-500 to-amber-700",
-    glow: "from-amber-300/30 via-yellow-500/18 to-amber-800/15",
+    panel: "from-yellow-300 via-amber-400 to-yellow-600",
+    glow: "from-yellow-300/30 via-amber-400/18 to-yellow-700/15",
   },
   cyan: {
     panel: "from-sky-200 via-blue-400 to-indigo-700",
@@ -109,12 +108,9 @@ export default function ExperienceSection() {
       <div className="mx-auto grid max-w-[560px] grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
         <div className="flex flex-col gap-6 md:gap-8">
           {leftColumn.map((exp, index) => (
-            <a
+            <div
               key={exp.id}
-              href={exp.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="experience-card group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0c0f13] p-4 text-inherit no-underline opacity-0 translate-y-12 shadow-[0_22px_70px_rgba(0,0,0,0.42)] transition-all duration-700 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_90px_rgba(0,0,0,0.52)]"
+              className="experience-card group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0c0f13] p-4 opacity-0 translate-y-12 shadow-[0_22px_70px_rgba(0,0,0,0.42)] transition-all duration-700"
               style={{ transitionDelay: `${index * 160}ms` }}
             >
               <div
@@ -158,18 +154,15 @@ export default function ExperienceSection() {
                   {exp.year}
                 </p>
               </div>
-            </a>
+            </div>
           ))}
         </div>
 
         <div className="flex flex-col gap-5 md:gap-6 md:pt-8">
           {rightColumn.map((exp, index) => (
-            <a
+            <div
               key={exp.id}
-              href={exp.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="experience-card group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0c0f13] p-4 text-inherit no-underline opacity-0 translate-y-12 shadow-[0_22px_70px_rgba(0,0,0,0.42)] transition-all duration-700 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_90px_rgba(0,0,0,0.52)]"
+              className="experience-card group relative overflow-hidden rounded-[24px] border border-white/10 bg-[#0c0f13] p-4 opacity-0 translate-y-12 shadow-[0_22px_70px_rgba(0,0,0,0.42)] transition-all duration-700"
               style={{ transitionDelay: `${(index + 2) * 160}ms` }}
             >
               <div
@@ -213,7 +206,7 @@ export default function ExperienceSection() {
                   {exp.year}
                 </p>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </div>

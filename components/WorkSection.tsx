@@ -99,51 +99,60 @@ export default function WorkSection() {
           {videos.map((video, index) => (
             <div
               key={index}
-              className="relative h-[420px] w-[78vw] min-w-[78vw] max-w-[261px] flex-shrink-0 cursor-pointer overflow-hidden rounded-[18px] border border-white/[0.08] bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 animate-card-fade-in sm:h-[564px] sm:min-w-[261px] sm:rounded-[20px]"
+              className="relative flex-shrink-0 opacity-0 animate-card-fade-in flex items-center justify-center"
               style={{
                 scrollSnapAlign: "center",
                 animationDelay: `${0.7 + index * 0.1}s`,
-                boxShadow: "0px 20px 60px 20px rgba(0,0,0,0.4)",
-                transform: "translate3d(0, 0px, 0)",
-                transition:
-                  "transform 1.2s cubic-bezier(0.05, 0.7, 0.1, 1), box-shadow 1.2s cubic-bezier(0.05, 0.7, 0.1, 1), opacity 0.3s ease",
+                width: "min(78vw, 261px)",
+                minWidth: "min(78vw, 261px)",
+                height: "auto",
                 zIndex: 10,
-                willChange: "transform",
-              }}
-              onMouseEnter={(e) => {
-                if (window.innerWidth < 640) return;
-                e.currentTarget.style.setProperty(
-                  "transform",
-                  "translate3d(0, -16px, 0) scale(1.02)",
-                  "important"
-                );
-                e.currentTarget.style.boxShadow =
-                  "0 50px 120px rgba(0,0,0,0.5)";
-                e.currentTarget.style.zIndex = "50";
-                e.currentTarget.style.filter = "brightness(1.05)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.setProperty(
-                  "transform",
-                  "translate3d(0, 0px, 0) scale(1)",
-                  "important"
-                );
-                e.currentTarget.style.boxShadow =
-                  "0px 20px 60px 20px rgba(0,0,0,0.4)";
-                e.currentTarget.style.zIndex = "10";
-                e.currentTarget.style.filter = "brightness(1)";
               }}
             >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="h-full w-full object-cover"
-                style={{ pointerEvents: "none" }}
+              {/* Phone mockup shell */}
+              <div
+                className="relative"
+                style={{
+                  width: "100%",
+                  aspectRatio: "9/19.5",
+                  background:
+                    "linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #222 100%)",
+                  borderRadius: "44px",
+                  padding: "12px",
+                  boxShadow:
+                    "0 0 0 1.5px #3a3a3a, 0 0 0 3px #111, 0 30px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08)",
+                }}
               >
-                <source src={video.src} type="video/mp4" />
-              </video>
+                {/* Side buttons */}
+                <div className="absolute -right-[3px] top-[80px] w-[3px] h-[32px] bg-[#2a2a2a] rounded-r-sm" />
+                <div className="absolute -left-[3px] top-[60px] w-[3px] h-[24px] bg-[#2a2a2a] rounded-l-sm" />
+                <div className="absolute -left-[3px] top-[92px] w-[3px] h-[24px] bg-[#2a2a2a] rounded-l-sm" />
+
+                {/* Screen area */}
+                <div
+                  className="relative w-full h-full overflow-hidden"
+                  style={{ borderRadius: "32px", background: "#000" }}
+                >
+                  {/* Notch */}
+                  <div
+                    className="absolute top-0 left-1/2 -translate-x-1/2 w-[72px] h-[24px] bg-[#1a1a1a] z-20 flex items-center justify-center"
+                    style={{ borderRadius: "0 0 16px 16px" }}
+                  >
+                    <div className="w-[8px] h-[8px] rounded-full bg-[#111] border border-[#333]" />
+                  </div>
+
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                    style={{ pointerEvents: "none" }}
+                  >
+                    <source src={video.src} type="video/mp4" />
+                  </video>
+                </div>
+              </div>
             </div>
           ))}
 
