@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const certificates = [
   {
@@ -107,40 +107,51 @@ const certificates = [
 
 export default function CertificatesGallerySection() {
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [activeCertificate, setActiveCertificate] = useState<
-    (typeof certificates)[number] | null
-  >(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const openLightbox = useCallback((index: number) => {
+    setLightboxIndex(index);
+    document.body.style.overflow = "hidden";
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+    document.body.style.overflow = "unset";
+  }, []);
+
+  const navigateLightbox = useCallback(
+    (direction: "prev" | "next") => {
+      if (lightboxIndex === null) return;
+      if (direction === "prev" && lightboxIndex > 0)
+        setLightboxIndex(lightboxIndex - 1);
+      else if (direction === "next" && lightboxIndex < certificates.length - 1)
+        setLightboxIndex(lightboxIndex + 1);
+    },
+    [lightboxIndex],
+  );
 
   const scrollCarousel = (direction: "prev" | "next") => {
     const container = carouselRef.current;
     if (!container) return;
-
     const card = container.querySelector<HTMLElement>(".certificate-card");
     if (!card) return;
-
     const cardWidth = card.getBoundingClientRect().width + 16;
-    const offset = direction === "next" ? cardWidth : -cardWidth;
-
-    container.scrollBy({ left: offset, behavior: "smooth" });
+    container.scrollBy({
+      left: direction === "next" ? cardWidth : -cardWidth,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
-    if (!activeCertificate) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setActiveCertificate(null);
-      }
+    if (lightboxIndex === null) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") navigateLightbox("prev");
+      else if (e.key === "ArrowRight") navigateLightbox("next");
     };
-
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = "unset";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [activeCertificate]);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, closeLightbox, navigateLightbox]);
 
   return (
     <>
@@ -181,11 +192,11 @@ export default function CertificatesGallerySection() {
             ref={carouselRef}
             className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
-            {certificates.map((certificate) => (
+            {certificates.map((certificate, index) => (
               <button
                 key={certificate.id}
                 type="button"
-                onClick={() => setActiveCertificate(certificate)}
+                onClick={() => openLightbox(index)}
                 className="certificate-card group relative w-[88%] shrink-0 snap-start overflow-hidden rounded-[20px] border border-white/10 bg-[#111315] p-4 text-left shadow-[0_10px_32px_rgba(0,0,0,0.2)] transition-all duration-300 hover:border-white/20 sm:w-[62%] lg:w-[44%]"
               >
                 <div className="relative">
@@ -211,8 +222,12 @@ export default function CertificatesGallerySection() {
                   </div>
 
                   <div className="mt-4 flex items-end justify-between border-t border-white/10 pt-4">
-                    <p className="text-[12px] font-medium text-white/65">{certificate.issuer}</p>
-                    <p className="text-[13px] font-semibold text-white/80">{certificate.date}</p>
+                    <p className="text-[12px] font-medium text-white/65">
+                      {certificate.issuer}
+                    </p>
+                    <p className="text-[13px] font-semibold text-white/80">
+                      {certificate.date}
+                    </p>
                   </div>
 
                   <div className="mt-3 inline-flex items-center gap-2 text-[12px] font-medium text-white/62">
@@ -228,93 +243,220 @@ export default function CertificatesGallerySection() {
         </div>
       </section>
 
-      {activeCertificate && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-          <button
-            type="button"
-            aria-label="Close certificate preview"
-            className="absolute inset-0 bg-black/90 backdrop-blur-sm"
-            onClick={() => setActiveCertificate(null)}
+      {lightboxIndex !== null && (
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={closeLightbox}
           />
 
-          <div className="relative z-10 w-full max-w-[1120px] overflow-hidden rounded-[28px] border border-white/10 bg-[#111313] shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
-            <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr]">
-              <div className="relative min-h-[360px] border-b border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.01))] p-4 sm:p-6 md:min-h-[680px] md:border-b-0 md:border-r">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_35%)]" />
-                <div className="relative h-full overflow-hidden rounded-[22px] border border-white/10 bg-black/20">
+          {/* ── MOBILE: Bottom Sheet ── */}
+          <div
+            className="relative w-full md:hidden bg-[#111] rounded-t-[28px] flex flex-col animate-slide-up"
+            style={{ maxHeight: "92dvh" }}
+          >
+            <div className="flex-shrink-0 relative flex items-center justify-between px-5 pt-4 pb-3">
+              <div className="w-10 h-1 rounded-full bg-white/20 absolute left-1/2 -translate-x-1/2 top-3" />
+              <div className="flex-1" />
+              <button
+                onClick={closeLightbox}
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white"
+              >
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M12 4L4 12M4 4L12 12"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto">
+              <div className="px-4 pb-4 flex justify-center">
+                <div
+                  className="relative w-full overflow-hidden rounded-[16px] border border-white/10 bg-black/20"
+                  style={{ aspectRatio: "1.3" }}
+                >
                   <Image
-                    src={activeCertificate.image}
-                    alt={activeCertificate.title}
+                    src={certificates[lightboxIndex].image}
+                    alt={certificates[lightboxIndex].title}
                     fill
                     sizes="100vw"
                     className="object-contain"
+                    quality={95}
+                    priority
                   />
                 </div>
               </div>
 
-              <div className="flex flex-col justify-between p-5 sm:p-8">
-                <div>
-                  <span className="inline-flex rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[10px] font-semibold uppercase tracking-[1.8px] text-white/50">
-                    Certificate Preview
-                  </span>
-
-                  <h3 className="mt-4 text-[24px] font-extrabold text-white/92">
-                    {activeCertificate.title}
-                  </h3>
-
-                  <p className="mt-4 text-sm leading-relaxed text-white/60">
-                    Certificate details and image preview.
-                  </p>
-
-                  <div className="mt-8 space-y-4">
-                    <div className="rounded-[18px] border border-white/10 bg-white/[0.03] p-4">
-                      <p className="text-[10px] font-semibold uppercase tracking-[1.8px] text-white/38">
-                        issuer
-                      </p>
-                      <p className="mt-2 text-[15px] text-white/82">
-                        {activeCertificate.issuer}
-                      </p>
-                    </div>
-
-                    <div className="rounded-[18px] border border-white/10 bg-white/[0.03] p-4">
-                      <p className="text-[10px] font-semibold uppercase tracking-[1.8px] text-white/38">
-                        category
-                      </p>
-                      <p className="mt-2 text-[15px] text-white/82">
-                        {activeCertificate.tag}
-                      </p>
-                    </div>
-
-                    <div className="rounded-[18px] border border-white/10 bg-white/[0.03] p-4">
-                      <p className="text-[10px] font-semibold uppercase tracking-[1.8px] text-white/38">
-                        earned
-                      </p>
-                      <p className="mt-2 text-[15px] text-white/82">
-                        {activeCertificate.date}
-                      </p>
-                    </div>
+              <div className="px-6 pt-4 border-t border-white/[0.08]">
+                <span className="text-[10px] font-semibold tracking-[2px] uppercase text-white/50 mb-1 block">
+                  {certificates[lightboxIndex].tag}
+                </span>
+                <h2 className="text-[22px] font-extrabold text-white mb-4 leading-tight">
+                  {certificates[lightboxIndex].title}
+                </h2>
+                <div className="space-y-3 mb-6">
+                  <div className="flex justify-between items-center py-2 border-b border-white/10">
+                    <span className="text-sm text-white/50">Issuer</span>
+                    <span className="text-sm text-white/90">
+                      {certificates[lightboxIndex].issuer}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-white/10">
+                    <span className="text-sm text-white/50">Year</span>
+                    <span className="text-sm text-white/90">
+                      {certificates[lightboxIndex].date}
+                    </span>
                   </div>
                 </div>
-
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="flex gap-3 pb-10">
                   <button
-                    type="button"
-                    onClick={() => setActiveCertificate(null)}
-                    className="rounded-[16px] border border-white/10 bg-white px-4 py-3 text-sm font-semibold text-black transition-transform duration-300 hover:-translate-y-0.5"
+                    onClick={() => navigateLightbox("prev")}
+                    disabled={lightboxIndex === 0}
+                    className="flex-1 py-3 rounded-full border border-white/15 text-white/60 text-sm disabled:opacity-30 flex items-center justify-center gap-2"
                   >
-                    Close preview
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                      <path
+                        d="M12.5 15L7.5 10L12.5 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    Prev
+                  </button>
+                  <button
+                    onClick={() => navigateLightbox("next")}
+                    disabled={lightboxIndex === certificates.length - 1}
+                    className="flex-1 py-3 rounded-full border border-white/15 text-white/60 text-sm disabled:opacity-30 flex items-center justify-center gap-2"
+                  >
+                    Next
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                      <path
+                        d="M7.5 15L12.5 10L7.5 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                   </button>
                 </div>
               </div>
             </div>
+          </div>
 
+          {/* ── DESKTOP: Full lightbox ── */}
+          <div className="relative w-full h-full hidden md:flex">
+            {/* Main image area */}
+            <div className="flex-1 relative overflow-hidden flex items-center justify-center p-12">
+              <div className="relative w-full h-full overflow-hidden rounded-[22px] border border-white/10 bg-black/20">
+                <Image
+                  src={certificates[lightboxIndex].image}
+                  alt={certificates[lightboxIndex].title}
+                  fill
+                  sizes="100vw"
+                  className="object-contain"
+                  quality={95}
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Info Sidebar */}
+            <div className="w-80 bg-gradient-to-b from-black/80 to-black/90 backdrop-blur-md p-8 flex flex-col justify-between">
+              <div>
+                <span className="text-xs font-semibold tracking-[2px] uppercase text-white/60 mb-4 block">
+                  {certificates[lightboxIndex].tag}
+                </span>
+                <h2 className="text-3xl font-extrabold text-white mb-6 leading-tight">
+                  {certificates[lightboxIndex].title}
+                </h2>
+                <div className="space-y-4 mb-8">
+                  <div className="flex justify-between items-center py-2 border-b border-white/10">
+                    <span className="text-sm text-white/60">Issuer</span>
+                    <span className="text-sm text-white/90">
+                      {certificates[lightboxIndex].issuer}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-white/10">
+                    <span className="text-sm text-white/60">Year</span>
+                    <span className="text-sm text-white/90">
+                      {certificates[lightboxIndex].date}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="text-sm text-white/60">
+                  {lightboxIndex + 1} of {certificates.length}
+                </div>
+                <div className="space-y-2 text-xs text-white/50">
+                  <div className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-white/40 rounded-full" />
+                    <span>← → Navigate</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-white/40 rounded-full" />
+                    <span>ESC to close</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop nav arrows */}
+            {lightboxIndex > 0 && (
+              <button
+                onClick={() => navigateLightbox("prev")}
+                className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 border border-white/15 text-white flex items-center justify-center hover:bg-black/70 transition-colors z-10"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M12.5 15L7.5 10L12.5 5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            )}
+            {lightboxIndex < certificates.length - 1 && (
+              <button
+                onClick={() => navigateLightbox("next")}
+                className="absolute right-[336px] top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 border border-white/15 text-white flex items-center justify-center hover:bg-black/70 transition-colors z-10"
+              >
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M7.5 15L12.5 10L7.5 5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            )}
+
+            {/* Close button */}
             <button
-              type="button"
-              aria-label="Close"
-              onClick={() => setActiveCertificate(null)}
-              className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white/75 transition-colors duration-300 hover:bg-black/35"
+              onClick={closeLightbox}
+              className="absolute right-[336px] top-6 w-10 h-10 rounded-full bg-black/50 border border-white/15 text-white/75 flex items-center justify-center hover:bg-black/70 transition-colors z-10"
             >
-              x
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M12 4L4 12M4 4L12 12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
             </button>
           </div>
         </div>

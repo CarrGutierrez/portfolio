@@ -61,7 +61,7 @@ const themes = {
     glow: "from-rose-200/30 via-red-400/20 to-rose-800/15",
   },
   multi: {
-    panel: "from-yellow-300 via-amber-400 to-yellow-600",
+    panel: "from-[#1a1400] via-[#2a1f00] to-[#1a1400]",
     glow: "from-yellow-300/30 via-amber-400/18 to-yellow-700/15",
   },
   cyan: {
