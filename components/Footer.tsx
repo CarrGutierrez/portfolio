@@ -11,21 +11,16 @@ export default function Footer() {
         </h2>
 
         <p className="text-white/60 text-[15px] sm:text-[16px] md:text-[18px] leading-relaxed max-w-[600px] mx-auto">
-          Want to chat? Just shoot me a{" "}
+          Want to chat? Drop me an{" "}
           <a
-            href="#"
+            href="https://mail.google.com/mail/?view=cm&to=carrgutierrez24@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-400 hover:text-blue-300 transition-colors underline"
           >
-            DM with a direct question on Instagram
-          </a>{" "}
-          or{" "}
-          <a
-            href="mailto:carrgutierrez24@gmail.com"
-            className="text-blue-400 hover:text-blue-300 transition-colors underline"
-          >
-            drop me an email
+            email
           </a>
-          , and I'll reply as soon as I can.
+          , and I&apos;ll reply as soon as I can.
         </p>
       </div>
     </footer>

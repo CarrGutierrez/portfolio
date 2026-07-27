@@ -3,10 +3,116 @@
 import { useRef, useEffect, useState } from "react";
 
 const videos = [
-  { src: "/assets/rentopia.mp4", alt: "Rentopia App" },
-  { src: "/assets/brgy.mp4", alt: "Brgy App" },
-  { src: "/assets/docquick.mp4", alt: "DocQuick App" },
+  {
+    src: "/assets/rentopia.mp4",
+    alt: "Rentopia App",
+    figma: "https://www.figma.com/design/fkT5qCabGS9iQfiY6O5HGs/Rentopia?node-id=0-1&t=RGhUG7jw4XBBgmwV-1",
+  },
+  {
+    src: "/assets/brgy.mp4",
+    alt: "Brgy App",
+    figma:
+      "https://www.figma.com/design/huStkst66Qc6drkq5TE3yI/Health-Care-App?node-id=0-1&t=SlpExDIJRqKP5mpc-1",
+  },
+  {
+    src: "/assets/docquick.mp4",
+    alt: "DocQuick App",
+    figma: null,
+  },
+  {
+    src: "/assets/hrnexus.mp4",
+    alt: "HRNexus App",
+    figma:
+      "https://www.figma.com/design/tpMesWIyoHjIhaw86bhney/HRNexus?node-id=0-1&t=PN0DIL0syYQKfwz0-1",
+  },
+  {
+    src: "/assets/busybee.mp4",
+    alt: "BusyBee App",
+    figma: "https://www.figma.com/design/Yw8ztkWZlvXNYau1EbRcqS/BusyBee?node-id=4045-1231&t=R7GhBg8uIikkWrFv-1",
+  },
 ];
+
+function PhoneMockup({
+  video,
+  showBadge,
+}: {
+  video: (typeof videos)[number];
+  showBadge: boolean;
+}) {
+  return (
+    <div
+      className="relative transition-transform duration-300 group-hover:scale-[1.03]"
+      style={{
+        width: "100%",
+        aspectRatio: "9/19.5",
+        background:
+          "linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #222 100%)",
+        borderRadius: "44px",
+        padding: "12px",
+        boxShadow:
+          "0 0 0 1.5px #3a3a3a, 0 0 0 3px #111, 0 30px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08)",
+      }}
+    >
+      {/* Side buttons */}
+      <div className="absolute -right-[3px] top-[80px] w-[3px] h-[32px] bg-[#2a2a2a] rounded-r-sm" />
+      <div className="absolute -left-[3px] top-[60px] w-[3px] h-[24px] bg-[#2a2a2a] rounded-l-sm" />
+      <div className="absolute -left-[3px] top-[92px] w-[3px] h-[24px] bg-[#2a2a2a] rounded-l-sm" />
+
+      {/* Screen area */}
+      <div
+        className="relative w-full h-full overflow-hidden"
+        style={{ borderRadius: "32px", background: "#000" }}
+      >
+        {/* Notch */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[72px] h-[24px] bg-[#1a1a1a] z-20 flex items-center justify-center"
+          style={{ borderRadius: "0 0 16px 16px" }}
+        >
+          <div className="w-[8px] h-[8px] rounded-full bg-[#111] border border-[#333]" />
+        </div>
+
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          style={{ pointerEvents: "none" }}
+        >
+          <source src={video.src} type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Figma hover badge — only shown when showBadge is true */}
+      {showBadge && (
+        <div className="absolute inset-0 rounded-[44px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+          <span className="flex items-center gap-2 bg-white text-black text-[12px] font-semibold px-4 py-2 rounded-full shadow-lg">
+            <svg width="14" height="14" viewBox="0 0 38 57" fill="none">
+              <path
+                d="M19 28.5A9.5 9.5 0 1 1 28.5 19 9.5 9.5 0 0 1 19 28.5Z"
+                fill="#1ABCFE"
+              />
+              <path
+                d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19V47.5A9.5 9.5 0 0 1 0 47.5Z"
+                fill="#0ACF83"
+              />
+              <path d="M19 0V19H28.5A9.5 9.5 0 0 0 19 0Z" fill="#FF7262" />
+              <path
+                d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z"
+                fill="#F24E1E"
+              />
+              <path
+                d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z"
+                fill="#A259FF"
+              />
+            </svg>
+            View in Figma
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function WorkSection() {
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -16,48 +122,34 @@ export default function WorkSection() {
 
   const checkScrollability = () => {
     if (!carouselRef.current) return;
-
     const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
     const maxScroll = scrollWidth - clientWidth;
-    const isAtStart = scrollLeft < 40;
-    const isAtEnd = scrollLeft > maxScroll - 40;
     const step = window.innerWidth < 640 ? clientWidth * 0.82 : 287;
-
-    setCanScrollLeft(!isAtStart);
-    setCanScrollRight(!isAtEnd);
+    setCanScrollLeft(scrollLeft >= 40);
+    setCanScrollRight(scrollLeft <= maxScroll - 40);
     setCurrentIndex(Math.min(Math.round(scrollLeft / step), videos.length - 1));
   };
 
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
-
-    const handleScroll = () => {
-      checkScrollability();
-    };
-
     setTimeout(checkScrollability, 100);
-    carousel.addEventListener("scroll", handleScroll);
+    carousel.addEventListener("scroll", checkScrollability);
     window.addEventListener("resize", checkScrollability);
-
     return () => {
-      carousel.removeEventListener("scroll", handleScroll);
+      carousel.removeEventListener("scroll", checkScrollability);
       window.removeEventListener("resize", checkScrollability);
     };
   }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (!carouselRef.current) return;
-
-    const carousel = carouselRef.current;
     const scrollAmount =
-      window.innerWidth < 640 ? carousel.clientWidth * 0.82 : 287;
-
-    carousel.scrollBy({
+      window.innerWidth < 640 ? carouselRef.current.clientWidth * 0.82 : 287;
+    carouselRef.current.scrollBy({
       left: direction === "left" ? -scrollAmount : scrollAmount,
       behavior: "smooth",
     });
-
     setTimeout(checkScrollability, 50);
     setTimeout(checkScrollability, 300);
     setTimeout(checkScrollability, 600);
@@ -109,50 +201,21 @@ export default function WorkSection() {
                 zIndex: 10,
               }}
             >
-              {/* Phone mockup shell */}
-              <div
-                className="relative"
-                style={{
-                  width: "100%",
-                  aspectRatio: "9/19.5",
-                  background:
-                    "linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #222 100%)",
-                  borderRadius: "44px",
-                  padding: "12px",
-                  boxShadow:
-                    "0 0 0 1.5px #3a3a3a, 0 0 0 3px #111, 0 30px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08)",
-                }}
-              >
-                {/* Side buttons */}
-                <div className="absolute -right-[3px] top-[80px] w-[3px] h-[32px] bg-[#2a2a2a] rounded-r-sm" />
-                <div className="absolute -left-[3px] top-[60px] w-[3px] h-[24px] bg-[#2a2a2a] rounded-l-sm" />
-                <div className="absolute -left-[3px] top-[92px] w-[3px] h-[24px] bg-[#2a2a2a] rounded-l-sm" />
-
-                {/* Screen area */}
-                <div
-                  className="relative w-full h-full overflow-hidden"
-                  style={{ borderRadius: "32px", background: "#000" }}
+              {video.figma ? (
+                <a
+                  href={video.figma}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative block w-full"
+                  aria-label={`View ${video.alt} in Figma`}
                 >
-                  {/* Notch */}
-                  <div
-                    className="absolute top-0 left-1/2 -translate-x-1/2 w-[72px] h-[24px] bg-[#1a1a1a] z-20 flex items-center justify-center"
-                    style={{ borderRadius: "0 0 16px 16px" }}
-                  >
-                    <div className="w-[8px] h-[8px] rounded-full bg-[#111] border border-[#333]" />
-                  </div>
-
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                    style={{ pointerEvents: "none" }}
-                  >
-                    <source src={video.src} type="video/mp4" />
-                  </video>
+                  <PhoneMockup video={video} showBadge />
+                </a>
+              ) : (
+                <div className="relative block w-full">
+                  <PhoneMockup video={video} showBadge={false} />
                 </div>
-              </div>
+              )}
             </div>
           ))}
 
