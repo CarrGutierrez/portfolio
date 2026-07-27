@@ -4,10 +4,21 @@ import { useRef, useEffect, useState } from "react";
 
 const videos = [
   {
+    src: "/assets/hrnexusfinal.mp4",
+    alt: "HRNexus Final",
+    figma: null,
+  },
+  {
     src: "/assets/rentopia.mp4",
     alt: "Rentopia App",
     figma:
       "https://www.figma.com/design/fkT5qCabGS9iQfiY6O5HGs/Rentopia?node-id=0-1&t=RGhUG7jw4XBBgmwV-1",
+  },
+  {
+    src: "/assets/busybee.mp4",
+    alt: "BusyBee App",
+    figma:
+      "https://www.figma.com/design/Yw8ztkWZlvXNYau1EbRcqS/BusyBee?node-id=4045-1231&t=R7GhBg8uIikkWrFv-1",
   },
   {
     src: "/assets/brgy.mp4",
@@ -16,21 +27,15 @@ const videos = [
       "https://www.figma.com/design/huStkst66Qc6drkq5TE3yI/Health-Care-App?node-id=0-1&t=SlpExDIJRqKP5mpc-1",
   },
   {
-    src: "/assets/docquick.mp4",
-    alt: "DocQuick App",
-    figma: null,
-  },
-  {
     src: "/assets/hrnexus.mp4",
     alt: "HRNexus App",
     figma:
       "https://www.figma.com/design/tpMesWIyoHjIhaw86bhney/HRNexus?node-id=0-1&t=PN0DIL0syYQKfwz0-1",
   },
   {
-    src: "/assets/busybee.mp4",
-    alt: "BusyBee App",
-    figma:
-      "https://www.figma.com/design/Yw8ztkWZlvXNYau1EbRcqS/BusyBee?node-id=4045-1231&t=R7GhBg8uIikkWrFv-1",
+    src: "/assets/docquick.mp4",
+    alt: "DocQuick App",
+    figma: null,
   },
 ];
 
