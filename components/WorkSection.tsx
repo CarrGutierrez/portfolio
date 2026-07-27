@@ -6,7 +6,8 @@ const videos = [
   {
     src: "/assets/rentopia.mp4",
     alt: "Rentopia App",
-    figma: "https://www.figma.com/design/fkT5qCabGS9iQfiY6O5HGs/Rentopia?node-id=0-1&t=RGhUG7jw4XBBgmwV-1",
+    figma:
+      "https://www.figma.com/design/fkT5qCabGS9iQfiY6O5HGs/Rentopia?node-id=0-1&t=RGhUG7jw4XBBgmwV-1",
   },
   {
     src: "/assets/brgy.mp4",
@@ -28,7 +29,8 @@ const videos = [
   {
     src: "/assets/busybee.mp4",
     alt: "BusyBee App",
-    figma: "https://www.figma.com/design/Yw8ztkWZlvXNYau1EbRcqS/BusyBee?node-id=4045-1231&t=R7GhBg8uIikkWrFv-1",
+    figma:
+      "https://www.figma.com/design/Yw8ztkWZlvXNYau1EbRcqS/BusyBee?node-id=4045-1231&t=R7GhBg8uIikkWrFv-1",
   },
 ];
 
@@ -236,29 +238,30 @@ export default function WorkSection() {
         {canScrollLeft && (
           <button
             onClick={() => scroll("left")}
-            className="absolute top-1/2 left-4 z-20 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 opacity-90 shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 hover:scale-110 hover:opacity-100 md:flex"
+            className="absolute top-1/2 left-4 -translate-y-1/2 rounded-full w-16 h-16 cursor-pointer transition-all duration-300 z-20 hidden md:flex items-center justify-center pointer-events-auto scale-100 hover:scale-110 active:scale-95"
+            style={{ background: "transparent" }}
           >
-            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
               <defs>
                 <mask id="leftArrowMaskWork">
-                  <circle cx="28" cy="28" r="28" fill="white" />
+                  <circle cx="32" cy="32" r="32" fill="white" />
                   <g
                     stroke="black"
-                    strokeWidth="3"
+                    strokeWidth="3.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     fill="none"
                   >
-                    <line x1="18" y1="28" x2="38" y2="28" />
-                    <polyline points="26,20 18,28 26,36" />
+                    <line x1="20" y1="32" x2="44" y2="32" />
+                    <polyline points="28,24 20,32 28,40" />
                   </g>
                 </mask>
               </defs>
               <circle
-                cx="28"
-                cy="28"
-                r="28"
-                fill="black"
+                cx="32"
+                cy="32"
+                r="32"
+                fill="white"
                 mask="url(#leftArrowMaskWork)"
               />
             </svg>
@@ -268,29 +271,30 @@ export default function WorkSection() {
         {canScrollRight && (
           <button
             onClick={() => scroll("right")}
-            className="absolute top-1/2 right-4 z-20 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 opacity-90 shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 hover:scale-110 hover:opacity-100 md:flex"
+            className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full w-16 h-16 cursor-pointer transition-all duration-300 z-20 hidden md:flex items-center justify-center pointer-events-auto scale-100 hover:scale-110 active:scale-95"
+            style={{ background: "transparent" }}
           >
-            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
               <defs>
                 <mask id="rightArrowMaskWork">
-                  <circle cx="28" cy="28" r="28" fill="white" />
+                  <circle cx="32" cy="32" r="32" fill="white" />
                   <g
                     stroke="black"
-                    strokeWidth="3"
+                    strokeWidth="3.5"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     fill="none"
                   >
-                    <line x1="18" y1="28" x2="38" y2="28" />
-                    <polyline points="30,20 38,28 30,36" />
+                    <line x1="20" y1="32" x2="44" y2="32" />
+                    <polyline points="36,24 44,32 36,40" />
                   </g>
                 </mask>
               </defs>
               <circle
-                cx="28"
-                cy="28"
-                r="28"
-                fill="black"
+                cx="32"
+                cy="32"
+                r="32"
+                fill="white"
                 mask="url(#rightArrowMaskWork)"
               />
             </svg>

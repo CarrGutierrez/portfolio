@@ -61,7 +61,9 @@ export default function Navigation() {
             </svg>
           </a>
           <a
-            href="mailto:carrgutierrez24@gmail.com"
+            href="https://mail.google.com/mail/?view=cm&to=carrgutierrez24@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
             className="h-6 w-6 opacity-30 transition-opacity duration-300 hover:opacity-70 sm:h-7 sm:w-7"
           >
             <Image
