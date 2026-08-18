@@ -135,7 +135,7 @@ export default function GraphicsSection() {
       case 3: // Luka poster (horizontal)
         return { maxWidth: "57%", maxHeight: "60%" };
       case 4: // Cade poster (tall/vertical)
-        return { maxWidth: "65%", maxHeight: "55%" };
+        return { maxWidth: "44%", maxHeight: "55%" };
       case 5: // MCPI Jersey (square-ish)
         return { maxWidth: "70%", maxHeight: "80%" };
       default:
@@ -696,17 +696,6 @@ export default function GraphicsSection() {
                         {tag}
                       </span>
                     ))}
-                  </div>
-                </div>
-                <div className="mb-8">
-                  <h3 className="text-sm font-semibold text-white/80 mb-3">
-                    Color Palette
-                  </h3>
-                  <div className="flex gap-2">
-                    <div className="w-8 h-8 rounded-full bg-blue-600 border border-white/20"></div>
-                    <div className="w-8 h-8 rounded-full bg-red-500 border border-white/20"></div>
-                    <div className="w-8 h-8 rounded-full bg-white border border-white/20"></div>
-                    <div className="w-8 h-8 rounded-full bg-gray-900 border border-white/20"></div>
                   </div>
                 </div>
               </div>
