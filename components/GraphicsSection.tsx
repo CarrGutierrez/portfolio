@@ -5,11 +5,25 @@ import Image from "next/image";
 
 const graphics = [
   {
-    src: "/assets/cade poster.png",
-    alt: "Cade Poster Design",
-    category: "poster design",
-    title: "cade event poster",
-    tags: ["poster", "typography", "sports"],
+    src: "/assets/flyer.png",
+    alt: "Flyer Design",
+    category: "flyer design",
+    title: "event flyer",
+    tags: ["flyer", "event", "promotion"],
+  },
+  {
+    src: "/assets/tesda program.jpg",
+    alt: "TESDA Program Design",
+    category: "program design",
+    title: "tesda program",
+    tags: ["program", "layout", "education"],
+  },
+  {
+    src: "/assets/lakers vs suns.png",
+    alt: "Lakers vs Suns Match Graphics",
+    category: "sports graphics",
+    title: "lakers vs suns matchup",
+    tags: ["nba", "sports", "matchup"],
   },
   {
     src: "/assets/lukaposter.png",
@@ -19,11 +33,11 @@ const graphics = [
     tags: ["sports", "basketball", "poster"],
   },
   {
-    src: "/assets/lakers vs suns.png",
-    alt: "Lakers vs Suns Match Graphics",
-    category: "sports graphics",
-    title: "lakers vs suns matchup",
-    tags: ["nba", "sports", "matchup"],
+    src: "/assets/cade poster.png",
+    alt: "Cade Poster Design",
+    category: "poster design",
+    title: "cade event poster",
+    tags: ["poster", "typography", "sports"],
   },
   {
     src: "/assets/MCPI JERSEY.png",
@@ -159,7 +173,7 @@ export default function GraphicsSection() {
       case 3: // MCPI Jersey
         return "Photoshop, Illustrator";
       default:
-        return "Photoshop";
+        return "Canva";
     }
   }, []);
 
@@ -644,13 +658,11 @@ export default function GraphicsSection() {
                 <div className="space-y-4 mb-8">
                   <div className="flex justify-between items-center py-2 border-b border-white/10">
                     <span className="text-sm text-white/60">Year</span>
-                    <span className="text-sm text-white/90">2025</span>
+                    <span className="text-sm text-white/90">2026</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-white/10">
                     <span className="text-sm text-white/60">Client</span>
-                    <span className="text-sm text-white/90">
-                      Personal Project
-                    </span>
+                    <span className="text-sm text-white/90">HCCDDN</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-white/10">
                     <span className="text-sm text-white/60">Tools</span>

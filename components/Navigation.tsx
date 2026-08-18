@@ -31,7 +31,7 @@ export default function Navigation() {
 
         <div className="flex shrink-0 gap-2 sm:gap-3">
           <a
-            href="https://www.linkedin.com/in/carr-gutierrez/"
+            href="https://www.linkedin.com/in/carr-gutierrez-a4b286374"
             target="_blank"
             rel="noopener noreferrer"
             className="h-6 w-6 opacity-30 transition-opacity duration-300 hover:opacity-70 sm:h-7 sm:w-7"
