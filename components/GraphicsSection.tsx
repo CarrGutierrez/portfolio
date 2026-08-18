@@ -126,13 +126,17 @@ export default function GraphicsSection() {
 
     // Different sizing based on the image
     switch (lightboxIndex) {
-      case 0: // Cade poster (tall/vertical)
-        return { maxWidth: "65%", maxHeight: "55%" };
-      case 1: // Luka poster (horizontal)
-        return { maxWidth: "57%", maxHeight: "60%" };
+      case 0: // Flyer (horizontal/wide)
+        return { maxWidth: "46%", maxHeight: "50%" };
+      case 1: // TESDA Program (vertical)
+        return { maxWidth: "65%", maxHeight: "75%" };
       case 2: // Lakers vs Suns (horizontal/wide)
         return { maxWidth: "80%", maxHeight: "60%" };
-      case 3: // MCPI Jersey (square-ish) - make bigger
+      case 3: // Luka poster (horizontal)
+        return { maxWidth: "57%", maxHeight: "60%" };
+      case 4: // Cade poster (tall/vertical)
+        return { maxWidth: "65%", maxHeight: "55%" };
+      case 5: // MCPI Jersey (square-ish)
         return { maxWidth: "70%", maxHeight: "80%" };
       default:
         return { maxWidth: "60%", maxHeight: "75%" };
@@ -149,13 +153,17 @@ export default function GraphicsSection() {
 
     // Different positioning based on the image
     switch (lightboxIndex) {
-      case 0: // Cade poster (tall/vertical) - move up more, add bottom space
+      case 0: // Flyer (horizontal)
+        return { paddingTop: "2rem", paddingBottom: "7rem" };
+      case 1: // TESDA Program (vertical)
         return { paddingTop: "1rem", paddingBottom: "8rem" };
-      case 1: // Luka poster (horizontal)
-        return { paddingTop: "2rem", paddingBottom: "8rem" };
       case 2: // Lakers vs Suns (horizontal/wide)
         return { paddingTop: "2rem", paddingBottom: "6rem" };
-      case 3: // MCPI Jersey (square-ish) - center better
+      case 3: // Luka poster (horizontal)
+        return { paddingTop: "2rem", paddingBottom: "8rem" };
+      case 4: // Cade poster (tall/vertical)
+        return { paddingTop: "1rem", paddingBottom: "8rem" };
+      case 5: // MCPI Jersey (square-ish)
         return { paddingTop: "3rem", paddingBottom: "7rem" };
       default:
         return { paddingTop: "2rem", paddingBottom: "6rem" };
@@ -164,16 +172,20 @@ export default function GraphicsSection() {
 
   const getProjectTools = useCallback((index: number) => {
     switch (index) {
-      case 0: // Cade poster
+      case 0: // Flyer
         return "Photoshop";
-      case 1: // Luka poster
-        return "Photoshop";
+      case 1: // TESDA Program
+        return "Canva";
       case 2: // Lakers vs Suns
         return "Affinity, Photoshop";
-      case 3: // MCPI Jersey
+      case 3: // Luka poster
+        return "Photoshop";
+      case 4: // Cade poster
+        return "Photoshop";
+      case 5: // MCPI Jersey
         return "Photoshop, Illustrator";
       default:
-        return "Canva";
+        return "Photoshop";
     }
   }, []);
 
