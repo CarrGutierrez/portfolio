@@ -19,6 +19,13 @@ const graphics = [
     tags: ["program", "layout", "education"],
   },
   {
+    src: "/assets/poster_vesta.png",
+    alt: "Vesta Poster Design",
+    category: "poster design",
+    title: "vesta poster",
+    tags: ["poster", "design", "event"],
+  },
+  {
     src: "/assets/lakers vs suns.png",
     alt: "Lakers vs Suns Match Graphics",
     category: "sports graphics",
@@ -130,13 +137,15 @@ export default function GraphicsSection() {
         return { maxWidth: "46%", maxHeight: "50%" };
       case 1: // TESDA Program (vertical)
         return { maxWidth: "65%", maxHeight: "75%" };
-      case 2: // Lakers vs Suns (horizontal/wide)
+      case 2: // Vesta Poster (vertical)
+        return { maxWidth: "29%", maxHeight: "70%" };
+      case 3: // Lakers vs Suns (horizontal/wide)
         return { maxWidth: "80%", maxHeight: "60%" };
-      case 3: // Luka poster (horizontal)
+      case 4: // Luka poster (horizontal)
         return { maxWidth: "57%", maxHeight: "60%" };
-      case 4: // Cade poster (tall/vertical)
+      case 5: // Cade poster (tall/vertical)
         return { maxWidth: "44%", maxHeight: "55%" };
-      case 5: // MCPI Jersey (square-ish)
+      case 6: // MCPI Jersey (square-ish)
         return { maxWidth: "70%", maxHeight: "80%" };
       default:
         return { maxWidth: "60%", maxHeight: "75%" };
@@ -157,13 +166,15 @@ export default function GraphicsSection() {
         return { paddingTop: "2rem", paddingBottom: "7rem" };
       case 1: // TESDA Program (vertical)
         return { paddingTop: "1rem", paddingBottom: "8rem" };
-      case 2: // Lakers vs Suns (horizontal/wide)
+      case 2: // Vesta Poster (vertical)
+        return { paddingTop: "1.5rem", paddingBottom: "7rem" };
+      case 3: // Lakers vs Suns (horizontal/wide)
         return { paddingTop: "2rem", paddingBottom: "6rem" };
-      case 3: // Luka poster (horizontal)
+      case 4: // Luka poster (horizontal)
         return { paddingTop: "2rem", paddingBottom: "8rem" };
-      case 4: // Cade poster (tall/vertical)
+      case 5: // Cade poster (tall/vertical)
         return { paddingTop: "1rem", paddingBottom: "8rem" };
-      case 5: // MCPI Jersey (square-ish)
+      case 6: // MCPI Jersey (square-ish)
         return { paddingTop: "3rem", paddingBottom: "7rem" };
       default:
         return { paddingTop: "2rem", paddingBottom: "6rem" };
@@ -176,13 +187,15 @@ export default function GraphicsSection() {
         return "Photoshop";
       case 1: // TESDA Program
         return "Canva";
-      case 2: // Lakers vs Suns
+      case 2: // Vesta Poster
+        return "Canva";
+      case 3: // Lakers vs Suns
         return "Affinity, Photoshop";
-      case 3: // Luka poster
+      case 4: // Luka poster
         return "Photoshop";
-      case 4: // Cade poster
+      case 5: // Cade poster
         return "Photoshop";
-      case 5: // MCPI Jersey
+      case 6: // MCPI Jersey
         return "Photoshop, Illustrator";
       default:
         return "Photoshop";
@@ -664,38 +677,19 @@ export default function GraphicsSection() {
                 <span className="text-xs font-semibold tracking-[2px] uppercase text-white/60 mb-4 block">
                   {graphics[lightboxIndex].category}
                 </span>
-                <h2 className="text-3xl font-extrabold text-white mb-6 lowercase leading-tight">
+                <h2 className="text-3xl font-extrabold text-white mb-8 lowercase leading-tight">
                   {graphics[lightboxIndex].title}
                 </h2>
-                <div className="space-y-4 mb-8">
+                <div className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b border-white/10">
                     <span className="text-sm text-white/60">Year</span>
                     <span className="text-sm text-white/90">2026</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-white/10">
-                    <span className="text-sm text-white/60">Client</span>
-                    <span className="text-sm text-white/90">HCCDDN</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-white/10">
                     <span className="text-sm text-white/60">Tools</span>
                     <span className="text-sm text-white/90">
                       {getProjectTools(lightboxIndex)}
                     </span>
-                  </div>
-                </div>
-                <div className="mb-8">
-                  <h3 className="text-sm font-semibold text-white/80 mb-3">
-                    Skills
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {graphics[lightboxIndex].tags.map((tag, tagIndex) => (
-                      <span
-                        key={tagIndex}
-                        className="px-3 py-1 text-xs font-medium uppercase tracking-wider bg-white/10 text-white/70 rounded-full backdrop-blur-sm border border-white/10"
-                      >
-                        {tag}
-                      </span>
-                    ))}
                   </div>
                 </div>
               </div>

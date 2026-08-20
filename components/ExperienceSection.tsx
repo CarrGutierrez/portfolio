@@ -19,7 +19,7 @@ const experiences: Experience[] = [
     id: 1,
     title: "DNSC",
     role: "Student",
-    year: "/ now",
+    year: "/ 2026",
     logo: "/assets/dnsc.jpg",
     color: "magenta",
   },
@@ -34,7 +34,7 @@ const experiences: Experience[] = [
   {
     id: 3,
     title: "HRNexus",
-    role: "UI/UX Designer",
+    role: "Frontend Developer",
     year: "/ 2025",
     logo: "/assets/hrnexuslogo.png",
     color: "multi",
