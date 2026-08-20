@@ -19,7 +19,7 @@ const graphics = [
     tags: ["program", "layout", "education"],
   },
   {
-    src: "/assets/poster_vesta.png",
+    src: "/assets/Poster_Vesta.png",
     alt: "Vesta Poster Design",
     category: "poster design",
     title: "vesta poster",
