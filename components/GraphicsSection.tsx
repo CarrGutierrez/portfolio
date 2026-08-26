@@ -2,8 +2,16 @@
 
 import { useRef, useEffect, useState, useCallback } from "react";
 import Image from "next/image";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const graphics = [
+  {
+    src: "/assets/camera store.png",
+    alt: "Camera Store UI Design",
+    category: "ui design",
+    title: "camera store",
+    tags: ["ui", "ecommerce", "design"],
+  },
   {
     src: "/assets/flyer.png",
     alt: "Flyer Design",
@@ -133,19 +141,21 @@ export default function GraphicsSection() {
 
     // Different sizing based on the image
     switch (lightboxIndex) {
-      case 0: // Flyer (horizontal/wide)
+      case 0: // Camera Store (UI - likely horizontal)
+        return { maxWidth: "70%", maxHeight: "65%" };
+      case 1: // Flyer (horizontal/wide)
         return { maxWidth: "46%", maxHeight: "50%" };
-      case 1: // TESDA Program (vertical)
+      case 2: // TESDA Program (vertical)
         return { maxWidth: "65%", maxHeight: "75%" };
-      case 2: // Vesta Poster (vertical)
+      case 3: // Vesta Poster (vertical)
         return { maxWidth: "29%", maxHeight: "70%" };
-      case 3: // Lakers vs Suns (horizontal/wide)
+      case 4: // Lakers vs Suns (horizontal/wide)
         return { maxWidth: "80%", maxHeight: "60%" };
-      case 4: // Luka poster (horizontal)
+      case 5: // Luka poster (horizontal)
         return { maxWidth: "57%", maxHeight: "60%" };
-      case 5: // Cade poster (tall/vertical)
+      case 6: // Cade poster (tall/vertical)
         return { maxWidth: "44%", maxHeight: "55%" };
-      case 6: // MCPI Jersey (square-ish)
+      case 7: // MCPI Jersey (square-ish)
         return { maxWidth: "70%", maxHeight: "80%" };
       default:
         return { maxWidth: "60%", maxHeight: "75%" };
@@ -162,18 +172,21 @@ export default function GraphicsSection() {
 
     // Different positioning based on the image
     switch (lightboxIndex) {
-      case 0: // Flyer (horizontal)
-        return { paddingTop: "2rem", paddingBottom: "7rem" };
-      case 1: // TESDA Program (vertical)
-        return { paddingTop: "1rem", paddingBottom: "8rem" };
-      case 2: // Vesta Poster (vertical)
-        return { paddingTop: "1.5rem", paddingBottom: "7rem" };
-      case 3: // Lakers vs Suns (horizontal/wide)
+      case 0: // Camera Store (UI)
         return { paddingTop: "2rem", paddingBottom: "6rem" };
-      case 4: // Luka poster (horizontal)
-        return { paddingTop: "2rem", paddingBottom: "8rem" };
-      case 5: // Cade poster (tall/vertical)
+      case 1: // Flyer (horizontal)
+        return { paddingTop: "2rem", paddingBottom: "7rem" };
+      case 2: // TESDA Program (vertical)
         return { paddingTop: "1rem", paddingBottom: "8rem" };
+      case 3: // Vesta Poster (vertical)
+        return { paddingTop: "1.5rem", paddingBottom: "7rem" };
+      case 4: // Lakers vs Suns (horizontal/wide)
+        return { paddingTop: "2rem", paddingBottom: "6rem" };
+      case 5: // Luka poster (horizontal)
+        return { paddingTop: "2rem", paddingBottom: "8rem" };
+      case 6: // Cade poster (tall/vertical)
+        return { paddingTop: "1rem", paddingBottom: "8rem" };
+      case 7: // MCPI Jersey (square-ish)
       case 6: // MCPI Jersey (square-ish)
         return { paddingTop: "3rem", paddingBottom: "7rem" };
       default:
@@ -183,19 +196,21 @@ export default function GraphicsSection() {
 
   const getProjectTools = useCallback((index: number) => {
     switch (index) {
-      case 0: // Flyer
+      case 0: // Camera Store
+        return "Figma";
+      case 1: // Flyer
         return "Photoshop";
-      case 1: // TESDA Program
+      case 2: // TESDA Program
         return "Canva";
-      case 2: // Vesta Poster
+      case 3: // Vesta Poster
         return "Canva";
-      case 3: // Lakers vs Suns
+      case 4: // Lakers vs Suns
         return "Affinity, Photoshop";
-      case 4: // Luka poster
+      case 5: // Luka poster
         return "Photoshop";
-      case 5: // Cade poster
+      case 6: // Cade poster
         return "Photoshop";
-      case 6: // MCPI Jersey
+      case 7: // MCPI Jersey
         return "Photoshop, Illustrator";
       default:
         return "Photoshop";
@@ -617,59 +632,81 @@ export default function GraphicsSection() {
           {/* ── DESKTOP: Full lightbox ── */}
           <div className="relative w-full h-full hidden md:flex">
             {/* Main Image Area */}
-            <div className="flex-1 relative overflow-hidden">
-              <div
-                className="absolute inset-0 flex items-start justify-center"
-                style={{
-                  paddingTop: getImagePositioning().paddingTop,
-                  paddingBottom: getImagePositioning().paddingBottom,
-                }}
-              >
+            {lightboxIndex === 0 ? (
+              <ScrollArea className="flex-1 relative">
+                <div className="flex items-start justify-center py-8 px-12">
+                  <div
+                    className="relative transition-all duration-500"
+                    style={{ maxWidth: getImageSizing().maxWidth }}
+                  >
+                    <Image
+                      src={getCurrentImageSrc()}
+                      alt={getCurrentImageAlt()}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="w-auto h-auto max-w-full object-contain transition-all duration-500"
+                      quality={95}
+                      priority
+                    />
+                  </div>
+                </div>
+              </ScrollArea>
+            ) : (
+              <div className="flex-1 relative overflow-hidden">
                 <div
-                  className="relative transition-all duration-500"
+                  className="absolute inset-0 flex items-start justify-center"
                   style={{
-                    maxWidth: getImageSizing().maxWidth,
-                    maxHeight: getImageSizing().maxHeight,
+                    paddingTop: getImagePositioning().paddingTop,
+                    paddingBottom: getImagePositioning().paddingBottom,
                   }}
                 >
-                  <Image
-                    src={getCurrentImageSrc()}
-                    alt={getCurrentImageAlt()}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    className="w-auto h-auto max-w-full max-h-full object-contain transition-all duration-500"
+                  <div
+                    className="relative transition-all duration-500"
                     style={{
-                      width: "auto",
-                      height: "auto",
-                      maxWidth: "100%",
-                      maxHeight: "100%",
+                      maxWidth: getImageSizing().maxWidth,
+                      maxHeight: getImageSizing().maxHeight,
                     }}
-                    quality={95}
-                    priority
-                  />
-                  {graphics[lightboxIndex].views &&
-                    graphics[lightboxIndex].views!.length > 1 && (
-                      <div className="absolute top-4 left-4 flex gap-2">
-                        {graphics[lightboxIndex].views!.map(
-                          (view, viewIndex) => (
-                            <button
-                              key={viewIndex}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                switchView(viewIndex);
-                              }}
-                              className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black" : "bg-black/50 text-white border border-white/20 hover:bg-white/20"}`}
-                            >
-                              {view.label}
-                            </button>
-                          ),
-                        )}
-                      </div>
-                    )}
+                  >
+                    <Image
+                      src={getCurrentImageSrc()}
+                      alt={getCurrentImageAlt()}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="w-auto h-auto max-w-full max-h-full object-contain transition-all duration-500"
+                      style={{
+                        width: "auto",
+                        height: "auto",
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                      }}
+                      quality={95}
+                      priority
+                    />
+                    {graphics[lightboxIndex].views &&
+                      graphics[lightboxIndex].views!.length > 1 && (
+                        <div className="absolute top-4 left-4 flex gap-2">
+                          {graphics[lightboxIndex].views!.map(
+                            (view, viewIndex) => (
+                              <button
+                                key={viewIndex}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  switchView(viewIndex);
+                                }}
+                                className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black" : "bg-black/50 text-white border border-white/20 hover:bg-white/20"}`}
+                              >
+                                {view.label}
+                              </button>
+                            ),
+                          )}
+                        </div>
+                      )}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Info Sidebar */}
             <div className="w-80 bg-gradient-to-b from-black/80 to-black/90 backdrop-blur-md p-8 flex flex-col justify-between">
