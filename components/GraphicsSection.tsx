@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const graphics = [
   {
-    src: "/assets/camera store.png",
+    src: "/assets/camera-store.png",
     alt: "Camera Store UI Design",
     category: "ui design",
     title: "camera store",
