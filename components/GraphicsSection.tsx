@@ -6,11 +6,52 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const graphics = [
   {
+    src: "/assets/Homepage - MUMS.png",
+    alt: "Mums Photo Editing",
+    category: "UI/UX DESIGN",
+    title: "Mums UI/UX ReDesign",
+    tags: ["photo", "editing", "portrait"],
+    views: [
+      {
+        src: "/assets/mums homepage before.png",
+        alt: "Mums Homepage Before",
+        label: "Home Before",
+      },
+      {
+        src: "/assets/Homepage - MUMS.png",
+        alt: "Mums Homepage After",
+        label: "Home After",
+      },
+      {
+        src: "/assets/product before mums.png",
+        alt: "Mums Product Before",
+        label: "Product Before",
+      },
+      {
+        src: "/assets/Product Page - MUMS.png",
+        alt: "Mums Product After",
+        label: "Product After",
+      },
+    ],
+  },
+  {
     src: "/assets/camera-store.png",
     alt: "Camera Store UI Design",
     category: "ui design",
     title: "camera store",
     tags: ["ui", "ecommerce", "design"],
+    views: [
+      {
+        src: "/assets/Homepage - camera store.png",
+        alt: "Camera Store Homepage",
+        label: "Homepage",
+      },
+      {
+        src: "/assets/camera-store.png",
+        alt: "Camera Store Product Page",
+        label: "Product",
+      },
+    ],
   },
   {
     src: "/assets/flyer.png",
@@ -141,21 +182,23 @@ export default function GraphicsSection() {
 
     // Different sizing based on the image
     switch (lightboxIndex) {
-      case 0: // Camera Store (UI - likely horizontal)
+      case 0: // Mums (portrait photo)
+        return { maxWidth: "85%", maxHeight: "70%" };
+      case 1: // Camera Store (UI - scrollable)
         return { maxWidth: "70%", maxHeight: "65%" };
-      case 1: // Flyer (horizontal/wide)
+      case 2: // Flyer (horizontal/wide)
         return { maxWidth: "46%", maxHeight: "50%" };
-      case 2: // TESDA Program (vertical)
+      case 3: // TESDA Program (vertical)
         return { maxWidth: "65%", maxHeight: "75%" };
-      case 3: // Vesta Poster (vertical)
+      case 4: // Vesta Poster (vertical)
         return { maxWidth: "29%", maxHeight: "70%" };
-      case 4: // Lakers vs Suns (horizontal/wide)
+      case 5: // Lakers vs Suns (horizontal/wide)
         return { maxWidth: "80%", maxHeight: "60%" };
-      case 5: // Luka poster (horizontal)
+      case 6: // Luka poster (horizontal)
         return { maxWidth: "57%", maxHeight: "60%" };
-      case 6: // Cade poster (tall/vertical)
+      case 7: // Cade poster (tall/vertical)
         return { maxWidth: "44%", maxHeight: "55%" };
-      case 7: // MCPI Jersey (square-ish)
+      case 8: // MCPI Jersey (square-ish)
         return { maxWidth: "70%", maxHeight: "80%" };
       default:
         return { maxWidth: "60%", maxHeight: "75%" };
@@ -172,22 +215,23 @@ export default function GraphicsSection() {
 
     // Different positioning based on the image
     switch (lightboxIndex) {
-      case 0: // Camera Store (UI)
-        return { paddingTop: "2rem", paddingBottom: "6rem" };
-      case 1: // Flyer (horizontal)
-        return { paddingTop: "2rem", paddingBottom: "7rem" };
-      case 2: // TESDA Program (vertical)
-        return { paddingTop: "1rem", paddingBottom: "8rem" };
-      case 3: // Vesta Poster (vertical)
+      case 0: // Mums (portrait)
         return { paddingTop: "1.5rem", paddingBottom: "7rem" };
-      case 4: // Lakers vs Suns (horizontal/wide)
+      case 1: // Camera Store (UI)
         return { paddingTop: "2rem", paddingBottom: "6rem" };
-      case 5: // Luka poster (horizontal)
-        return { paddingTop: "2rem", paddingBottom: "8rem" };
-      case 6: // Cade poster (tall/vertical)
+      case 2: // Flyer (horizontal)
+        return { paddingTop: "2rem", paddingBottom: "7rem" };
+      case 3: // TESDA Program (vertical)
         return { paddingTop: "1rem", paddingBottom: "8rem" };
-      case 7: // MCPI Jersey (square-ish)
-      case 6: // MCPI Jersey (square-ish)
+      case 4: // Vesta Poster (vertical)
+        return { paddingTop: "1.5rem", paddingBottom: "7rem" };
+      case 5: // Lakers vs Suns (horizontal/wide)
+        return { paddingTop: "2rem", paddingBottom: "6rem" };
+      case 6: // Luka poster (horizontal)
+        return { paddingTop: "2rem", paddingBottom: "8rem" };
+      case 7: // Cade poster (tall/vertical)
+        return { paddingTop: "1rem", paddingBottom: "8rem" };
+      case 8: // MCPI Jersey (square-ish)
         return { paddingTop: "3rem", paddingBottom: "7rem" };
       default:
         return { paddingTop: "2rem", paddingBottom: "6rem" };
@@ -196,21 +240,23 @@ export default function GraphicsSection() {
 
   const getProjectTools = useCallback((index: number) => {
     switch (index) {
-      case 0: // Camera Store
+      case 0: // Mums
         return "Figma";
-      case 1: // Flyer
+      case 1: // Camera Store
+        return "Figma";
+      case 2: // Flyer
         return "Photoshop";
-      case 2: // TESDA Program
+      case 3: // TESDA Program
         return "Canva";
-      case 3: // Vesta Poster
+      case 4: // Vesta Poster
         return "Canva";
-      case 4: // Lakers vs Suns
+      case 5: // Lakers vs Suns
         return "Affinity, Photoshop";
-      case 5: // Luka poster
+      case 6: // Luka poster
         return "Photoshop";
-      case 6: // Cade poster
+      case 7: // Cade poster
         return "Photoshop";
-      case 7: // MCPI Jersey
+      case 8: // MCPI Jersey
         return "Photoshop, Illustrator";
       default:
         return "Photoshop";
@@ -310,7 +356,7 @@ export default function GraphicsSection() {
         {/* Section title */}
         <div className="relative mb-8 text-center sm:mb-12">
           <h2 className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.6px] text-white/90 lowercase relative inline-block">
-            Graphic Design
+            Design Portfolio
             <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-[2px] bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-full" />
           </h2>
         </div>
@@ -352,6 +398,11 @@ export default function GraphicsSection() {
                   alt={graphic.alt}
                   fill
                   className="object-cover transition-all duration-500 ease-out group-hover:scale-110"
+                  style={
+                    index === 0 || index === 1
+                      ? { objectPosition: "center top" }
+                      : undefined
+                  }
                   sizes="(max-width: 640px) 78vw, 400px"
                   priority={index < 2}
                   quality={85}
@@ -632,7 +683,7 @@ export default function GraphicsSection() {
           {/* ── DESKTOP: Full lightbox ── */}
           <div className="relative w-full h-full hidden md:flex">
             {/* Main Image Area */}
-            {lightboxIndex === 0 ? (
+            {lightboxIndex === 0 || lightboxIndex === 1 ? (
               <ScrollArea className="flex-1 relative">
                 <div className="flex items-start justify-center py-8 px-12">
                   <div
@@ -649,6 +700,25 @@ export default function GraphicsSection() {
                       quality={95}
                       priority
                     />
+                    {graphics[lightboxIndex].views &&
+                      graphics[lightboxIndex].views!.length > 1 && (
+                        <div className="absolute top-4 left-4 flex gap-2">
+                          {graphics[lightboxIndex].views!.map(
+                            (view, viewIndex) => (
+                              <button
+                                key={viewIndex}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  switchView(viewIndex);
+                                }}
+                                className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black" : "bg-black/50 text-white border border-white/20 hover:bg-white/20"}`}
+                              >
+                                {view.label}
+                              </button>
+                            ),
+                          )}
+                        </div>
+                      )}
                   </div>
                 </div>
               </ScrollArea>

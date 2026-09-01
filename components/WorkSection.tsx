@@ -173,7 +173,7 @@ export default function WorkSection() {
 
         <div className="relative mb-8 text-center sm:mb-12">
           <h2 className="relative inline-block text-[24px] font-extrabold tracking-[-0.6px] text-white/90 lowercase sm:text-[28px]">
-            Recent Work
+            UI/UX Projects
             <div className="absolute -bottom-2 left-1/2 h-[2px] w-16 -translate-x-1/2 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent" />
           </h2>
         </div>
