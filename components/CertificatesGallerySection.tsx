@@ -31,10 +31,10 @@ const certificates = [
   {
     id: 3,
     title: "Certificate System",
-    issuer: "Project",
+    issuer: "Holy Child College of Davao del Norte",
     date: "2026",
-    tag: "system",
-    summary: "Certificate management system project.",
+    tag: "Inventory System",
+    summary: "Certificate Inventory System.",
     accent: "from-purple-400/70 via-violet-400/30 to-transparent",
     border: "border-purple-300/20",
     image: "/assets/CERTIFICATE system.jpg",
