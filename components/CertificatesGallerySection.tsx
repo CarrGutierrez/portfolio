@@ -6,102 +6,39 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const certificates = [
   {
     id: 1,
-    title: "Certificate of Completion",
-    issuer: "Certificate Archive",
-    date: "2025",
-    tag: "certificate of completion",
-    summary: "Completion credential.",
-    accent: "from-lime-300/70 via-emerald-300/30 to-transparent",
-    border: "border-lime-200/20",
-    image: "/assets/completion.jpg",
+    title: "Build Dynamic User Interfaces (UI) for Websites",
+    issuer: "Google",
+    date: "2026",
+    tag: "coursera",
+    summary: "Professional certification from Coursera.",
+    accent: "from-blue-400/70 via-cyan-400/30 to-transparent",
+    border: "border-blue-300/20",
+    image: "/assets/Coursera 4ZQ44RREIEAF_page-0001.jpg",
+    verifyLink: "https://coursera.org/verify/4ZQ44RREIEAF",
   },
   {
     id: 2,
-    title: "Certificate of Recognition",
-    issuer: "Certificate Archive",
-    date: "2025",
-    tag: "certificate of recognition",
-    summary: "Recognition credential.",
-    accent: "from-red-300/70 via-rose-300/30 to-transparent",
-    border: "border-red-200/20",
-    image: "/assets/CERTIFICATE system.jpg",
+    title: "Design a User Experience for Social Good & Prepare for Jobs",
+    issuer: "Google",
+    date: "2026",
+    tag: "coursera",
+    summary: "Professional certification from Coursera.",
+    accent: "from-sky-400/70 via-blue-400/30 to-transparent",
+    border: "border-sky-300/20",
+    image: "/assets/Coursera O4BF1YCZMWV5_page-0001.jpg",
+    verifyLink: "https://coursera.org/verify/O4BF1YCZMWV5",
   },
   {
     id: 3,
-    title: "Advanced Seminar Certification",
-    issuer: "Certificate Archive",
-    date: "2025",
-    tag: "seminar",
-    summary: "Seminar credential.",
-    accent: "from-sky-400/70 via-cyan-400/30 to-transparent",
-    border: "border-sky-300/20",
-    image: "/assets/advanceSeminar.png",
-  },
-  {
-    id: 4,
-    title: "Advanced Seminar II Certification",
-    issuer: "Certificate Archive",
-    date: "2025",
-    tag: "seminar",
-    summary: "Advanced seminar credential.",
-    accent: "from-emerald-400/70 via-green-400/30 to-transparent",
-    border: "border-emerald-300/20",
-    image: "/assets/advanceSeminar2.png",
-  },
-  {
-    id: 5,
-    title: "Blockchain Technology Certification",
-    issuer: "Certificate Archive",
-    date: "2025",
-    tag: "technology",
-    summary: "Blockchain credential.",
-    accent: "from-violet-400/70 via-indigo-400/30 to-transparent",
-    border: "border-violet-300/20",
-    image: "/assets/blockchain.jpg",
-  },
-  {
-    id: 6,
-    title: "Startup Innovation Certification",
-    issuer: "Certificate Archive",
-    date: "2025",
-    tag: "startup",
-    summary: "Startup and innovation credential.",
-    accent: "from-orange-300/70 via-amber-300/30 to-transparent",
-    border: "border-orange-200/20",
-    image: "/assets/startup.jpg",
-  },
-  {
-    id: 7,
-    title: "Vesta Poster Design Recognition",
-    issuer: "Certificate Archive",
-    date: "2025",
-    tag: "design",
-    summary: "Design recognition.",
-    accent: "from-fuchsia-300/70 via-pink-300/30 to-transparent",
-    border: "border-fuchsia-200/20",
-    image: "/assets/vestaPoster.jpg",
-  },
-  {
-    id: 8,
-    title: "Vesta Prototype Recognition Award",
-    issuer: "Certificate Archive",
-    date: "2025",
-    tag: "prototype",
-    summary: "Prototype recognition.",
-    accent: "from-teal-300/70 via-cyan-300/30 to-transparent",
-    border: "border-teal-200/20",
-    image: "/assets/vestaPrototype.jpg",
-  },
-  {
-    id: 9,
-    title: "Introduction to Packet Tracer",
-    issuer: "Certificate Archive",
-    date: "2024",
-    tag: "networking",
-    summary: "Networking fundamentals credential.",
-    accent: "from-blue-300/70 via-sky-300/30 to-transparent",
-    border: "border-blue-200/20",
-    image: "/assets/IntroductionToPacketTracer.jpg",
+    title: "Certificate System",
+    issuer: "Project",
+    date: "2026",
+    tag: "system",
+    summary: "Certificate management system project.",
+    accent: "from-purple-400/70 via-violet-400/30 to-transparent",
+    border: "border-purple-300/20",
+    image: "/assets/CERTIFICATE system.jpg",
+    verifyLink: null,
   },
 ];
 
@@ -394,6 +331,16 @@ export default function CertificatesGallerySection() {
               </div>
 
               <div className="space-y-4">
+                {certificates[lightboxIndex].verifyLink && (
+                  <a
+                    href={certificates[lightboxIndex].verifyLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full py-3 px-4 text-center rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 transition-colors"
+                  >
+                    Verify Certificate
+                  </a>
+                )}
                 <div className="text-sm text-white/60">
                   {lightboxIndex + 1} of {certificates.length}
                 </div>
