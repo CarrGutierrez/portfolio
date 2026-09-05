@@ -18,7 +18,7 @@ const experiences: Experience[] = [
   {
     id: 1,
     title: "DNSC",
-    role: "Student",
+    role: "BSIT GRADUATE",
     year: "/ 2026",
     logo: "/assets/dnsc.jpg",
     color: "magenta",
