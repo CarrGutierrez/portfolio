@@ -6,6 +6,25 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const graphics = [
   {
+    src: "/assets/pahrumpRealtor.png",
+    alt: "arcimetzger.Website Redesign",
+    category: "UI/UX DESIGN",
+    title: "marcimetzger Website Redesign",
+    tags: ["ui", "real estate", "web design"],
+    views: [
+      {
+        src: "/assets/pahrumprealtor_before.png",
+        alt: "Pahrump Realtor Before",
+        label: "Before",
+      },
+      {
+        src: "/assets/pahrumpRealtor.png",
+        alt: "Pahrump Realtor After",
+        label: "After",
+      },
+    ],
+  },
+  {
     src: "/assets/Homepage - MUMS.png",
     alt: "Mums Photo Editing",
     category: "UI/UX DESIGN",
@@ -182,23 +201,25 @@ export default function GraphicsSection() {
 
     // Different sizing based on the image
     switch (lightboxIndex) {
-      case 0: // Mums (portrait photo)
-        return { maxWidth: "85%", maxHeight: "70%" };
-      case 1: // Camera Store (UI - scrollable)
+      case 0: // Pahrump Realtor (UI - scrollable)
         return { maxWidth: "70%", maxHeight: "65%" };
-      case 2: // Flyer (horizontal/wide)
+      case 1: // Mums (portrait photo)
+        return { maxWidth: "70%", maxHeight: "70%" };
+      case 2: // Camera Store (UI - scrollable)
+        return { maxWidth: "70%", maxHeight: "65%" };
+      case 3: // Flyer (horizontal/wide)
         return { maxWidth: "46%", maxHeight: "50%" };
-      case 3: // TESDA Program (vertical)
+      case 4: // TESDA Program (vertical)
         return { maxWidth: "65%", maxHeight: "75%" };
-      case 4: // Vesta Poster (vertical)
+      case 5: // Vesta Poster (vertical)
         return { maxWidth: "29%", maxHeight: "70%" };
-      case 5: // Lakers vs Suns (horizontal/wide)
+      case 6: // Lakers vs Suns (horizontal/wide)
         return { maxWidth: "80%", maxHeight: "60%" };
-      case 6: // Luka poster (horizontal)
+      case 7: // Luka poster (horizontal)
         return { maxWidth: "57%", maxHeight: "60%" };
-      case 7: // Cade poster (tall/vertical)
+      case 8: // Cade poster (tall/vertical)
         return { maxWidth: "44%", maxHeight: "55%" };
-      case 8: // MCPI Jersey (square-ish)
+      case 9: // MCPI Jersey (square-ish)
         return { maxWidth: "70%", maxHeight: "80%" };
       default:
         return { maxWidth: "60%", maxHeight: "75%" };
@@ -215,23 +236,25 @@ export default function GraphicsSection() {
 
     // Different positioning based on the image
     switch (lightboxIndex) {
-      case 0: // Mums (portrait)
-        return { paddingTop: "1.5rem", paddingBottom: "7rem" };
-      case 1: // Camera Store (UI)
+      case 0: // Pahrump Realtor (UI)
         return { paddingTop: "2rem", paddingBottom: "6rem" };
-      case 2: // Flyer (horizontal)
+      case 1: // Mums (portrait)
+        return { paddingTop: "1.5rem", paddingBottom: "7rem" };
+      case 2: // Camera Store (UI)
+        return { paddingTop: "2rem", paddingBottom: "6rem" };
+      case 3: // Flyer (horizontal)
         return { paddingTop: "2rem", paddingBottom: "7rem" };
-      case 3: // TESDA Program (vertical)
+      case 4: // TESDA Program (vertical)
         return { paddingTop: "1rem", paddingBottom: "8rem" };
-      case 4: // Vesta Poster (vertical)
+      case 5: // Vesta Poster (vertical)
         return { paddingTop: "1.5rem", paddingBottom: "7rem" };
-      case 5: // Lakers vs Suns (horizontal/wide)
+      case 6: // Lakers vs Suns (horizontal/wide)
         return { paddingTop: "2rem", paddingBottom: "6rem" };
-      case 6: // Luka poster (horizontal)
+      case 7: // Luka poster (horizontal)
         return { paddingTop: "2rem", paddingBottom: "8rem" };
-      case 7: // Cade poster (tall/vertical)
+      case 8: // Cade poster (tall/vertical)
         return { paddingTop: "1rem", paddingBottom: "8rem" };
-      case 8: // MCPI Jersey (square-ish)
+      case 9: // MCPI Jersey (square-ish)
         return { paddingTop: "3rem", paddingBottom: "7rem" };
       default:
         return { paddingTop: "2rem", paddingBottom: "6rem" };
@@ -240,23 +263,25 @@ export default function GraphicsSection() {
 
   const getProjectTools = useCallback((index: number) => {
     switch (index) {
-      case 0: // Mums
+      case 0: // Pahrump Realtor
+        return "HTML, CSS, JS";
+      case 1: // Mums
         return "Figma";
-      case 1: // Camera Store
+      case 2: // Camera Store
         return "Figma";
-      case 2: // Flyer
+      case 3: // Flyer
         return "Photoshop";
-      case 3: // TESDA Program
+      case 4: // TESDA Program
         return "Canva";
-      case 4: // Vesta Poster
+      case 5: // Vesta Poster
         return "Canva";
-      case 5: // Lakers vs Suns
+      case 6: // Lakers vs Suns
         return "Affinity, Photoshop";
-      case 6: // Luka poster
+      case 7: // Luka poster
         return "Photoshop";
-      case 7: // Cade poster
+      case 8: // Cade poster
         return "Photoshop";
-      case 8: // MCPI Jersey
+      case 9: // MCPI Jersey
         return "Photoshop, Illustrator";
       default:
         return "Photoshop";
@@ -399,7 +424,7 @@ export default function GraphicsSection() {
                   fill
                   className="object-cover transition-all duration-500 ease-out group-hover:scale-110"
                   style={
-                    index === 0 || index === 1
+                    index === 0 || index === 1 || index === 2
                       ? { objectPosition: "center top" }
                       : undefined
                   }
@@ -601,7 +626,7 @@ export default function GraphicsSection() {
                                 e.stopPropagation();
                                 switchView(viewIndex);
                               }}
-                              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black" : "bg-black/50 text-white border border-white/20"}`}
+                              className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black shadow-lg" : "bg-black/60 text-white border-2 border-white/80 backdrop-blur-sm hover:bg-black/80 hover:border-white"}`}
                             >
                               {view.label}
                             </button>
@@ -683,7 +708,9 @@ export default function GraphicsSection() {
           {/* ── DESKTOP: Full lightbox ── */}
           <div className="relative w-full h-full hidden md:flex">
             {/* Main Image Area */}
-            {lightboxIndex === 0 || lightboxIndex === 1 ? (
+            {lightboxIndex === 0 ||
+            lightboxIndex === 1 ||
+            lightboxIndex === 2 ? (
               <ScrollArea className="flex-1 relative">
                 <div className="flex items-start justify-center py-8 px-12">
                   <div
@@ -702,7 +729,7 @@ export default function GraphicsSection() {
                     />
                     {graphics[lightboxIndex].views &&
                       graphics[lightboxIndex].views!.length > 1 && (
-                        <div className="absolute top-4 left-4 flex gap-2">
+                        <div className="absolute top-4 left-4 flex gap-3">
                           {graphics[lightboxIndex].views!.map(
                             (view, viewIndex) => (
                               <button
@@ -711,7 +738,7 @@ export default function GraphicsSection() {
                                   e.stopPropagation();
                                   switchView(viewIndex);
                                 }}
-                                className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black" : "bg-black/50 text-white border border-white/20 hover:bg-white/20"}`}
+                                className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 ${currentViewIndex === viewIndex ? "bg-white text-black shadow-lg" : "bg-black/60 text-white border-2 border-white/80 backdrop-blur-sm hover:bg-black/80 hover:border-white"}`}
                               >
                                 {view.label}
                               </button>
