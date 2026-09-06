@@ -30,7 +30,7 @@ const videos = [
     src: "/assets/hrnexus.mp4",
     alt: "HRNexus App",
     figma:
-      "https://www.figma.com/design/tpMesWIyoHjIhaw86bhney/HRNexus?node-id=0-1&t=PN0DIL0syYQKfwz0-1",
+      null,
   },
   {
     src: "/assets/docquick.mp4",
