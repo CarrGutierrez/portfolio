@@ -6,6 +6,18 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const certificates = [
   {
     id: 1,
+    title: "Designing User Interfaces and Experiences (UI/UX)",
+    issuer: "IBM",
+    date: "2026",
+    tag: "coursera",
+    summary: "Professional certification from Coursera.",
+    accent: "from-indigo-400/70 via-blue-400/30 to-transparent",
+    border: "border-indigo-300/20",
+    image: "/assets/Coursera EY84SBR8UYUE_page-0001.jpg",
+    verifyLink: "https://coursera.org/verify/EY84SBR8UYUE",
+  },
+  {
+    id: 2,
     title: "Build Dynamic User Interfaces (UI) for Websites",
     issuer: "Google",
     date: "2026",
@@ -17,7 +29,7 @@ const certificates = [
     verifyLink: "https://coursera.org/verify/4ZQ44RREIEAF",
   },
   {
-    id: 2,
+    id: 3,
     title: "Design a User Experience for Social Good & Prepare for Jobs",
     issuer: "Google",
     date: "2026",
@@ -29,7 +41,7 @@ const certificates = [
     verifyLink: "https://coursera.org/verify/O4BF1YCZMWV5",
   },
   {
-    id: 3,
+    id: 4,
     title: "Certificate System",
     issuer: "Holy Child College of Davao del Norte",
     date: "2026",
