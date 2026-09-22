@@ -52,6 +52,18 @@ const certificates = [
     image: "/assets/CERTIFICATE system.jpg",
     verifyLink: null,
   },
+   {
+    id: 5,
+    title: "UI Design Bootcamp",
+    issuer: "Frost Design and Consulting Group, Inc.",
+    date: "2026",
+    tag: "Bootcamp",
+    summary: "UI Design Bootcamp",
+    accent: "from-purple-400/70 via-violet-400/30 to-transparent",
+    border: "border-purple-300/20",
+    image: "/assets/ui_bootcamp.jpg",
+    verifyLink: null,
+  },
 ];
 
 export default function CertificatesGallerySection() {
