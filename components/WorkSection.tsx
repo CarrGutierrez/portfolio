@@ -17,7 +17,8 @@ const videos = [
   {
     src: "/assets/meduforce.mp4",
     alt: "Meduforce App",
-    figma: null,
+    figma:
+      "https://www.figma.com/design/eAd1luG2IQ3cEOdHgbO4Ji/meduforce?node-id=0-1&t=BniWMkVjCq221vpf-1",
   },
   {
     src: "/assets/busybee.mp4",
@@ -75,14 +76,6 @@ function PhoneMockup({
         className="relative w-full h-full overflow-hidden"
         style={{ borderRadius: "32px", background: "#000" }}
       >
-        {/* Notch */}
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[72px] h-[24px] bg-[#1a1a1a] z-20 flex items-center justify-center"
-          style={{ borderRadius: "0 0 16px 16px" }}
-        >
-          <div className="w-[8px] h-[8px] rounded-full bg-[#111] border border-[#333]" />
-        </div>
-
         <video
           autoPlay
           loop
