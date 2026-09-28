@@ -15,6 +15,11 @@ const videos = [
       "https://www.figma.com/design/fkT5qCabGS9iQfiY6O5HGs/Rentopia?node-id=0-1&t=RGhUG7jw4XBBgmwV-1",
   },
   {
+    src: "/assets/meduforce.mp4",
+    alt: "Meduforce App",
+    figma: null,
+  },
+  {
     src: "/assets/busybee.mp4",
     alt: "BusyBee App",
     figma:
