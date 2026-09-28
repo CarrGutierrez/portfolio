@@ -12,8 +12,9 @@ export default function HeroSection() {
         </div>
 
         <p className="max-w-[15ch] text-[24px] font-extrabold leading-[1.2] tracking-[-0.8px] text-white/80 opacity-0 animate-fade-in-delay sm:max-w-none sm:text-[28px] sm:leading-[1.3] sm:tracking-[-1px] md:text-[36px] lg:text-[42px]">
-          Designing digital products through thoughtful prototyping and
-          user-centered experiences.
+          Designing intuitive digital<br />
+           through UI design<br />
+          and user-centered thinking.
         </p>
       </div>
     </section>
