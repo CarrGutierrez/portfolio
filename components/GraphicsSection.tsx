@@ -6,6 +6,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const graphics = [
   {
+    src: "/assets/USBshareHub.png",
+    alt: "USBshare Hub UI/UX design",
+    category: "UI/UX DESIGN",
+    title: "USBshare Hub",
+    tags: ["ui/ux", "usb sharing", "figma"],
+    figma:
+      "https://www.figma.com/design/GjOzLlBFDQaaoxIj4DkXc6/USBshareHUb?node-id=20000543-4&t=G2xKKVdycD74aRPw-1",
+  },
+  {
     src: "/assets/pahrumpRealtor.png",
     alt: "arcimetzger.Website Redesign",
     category: "UI/UX DESIGN",
@@ -200,7 +209,9 @@ export default function GraphicsSection() {
     }
 
     // Different sizing based on the image
-    switch (lightboxIndex) {
+    switch (lightboxIndex - 1) {
+      case -1: // USBshare Hub (scrollable)
+        return { maxWidth: "70%", maxHeight: "65%" };
       case 0: // Pahrump Realtor (UI - scrollable)
         return { maxWidth: "70%", maxHeight: "65%" };
       case 1: // Mums (portrait photo)
@@ -235,7 +246,9 @@ export default function GraphicsSection() {
       return { paddingTop: "2rem", paddingBottom: "5rem" };
 
     // Different positioning based on the image
-    switch (lightboxIndex) {
+    switch (lightboxIndex - 1) {
+      case -1: // USBshare Hub (scrollable)
+        return { paddingTop: "2rem", paddingBottom: "6rem" };
       case 0: // Pahrump Realtor (UI)
         return { paddingTop: "2rem", paddingBottom: "6rem" };
       case 1: // Mums (portrait)
@@ -262,7 +275,9 @@ export default function GraphicsSection() {
   }, [lightboxIndex]);
 
   const getProjectTools = useCallback((index: number) => {
-    switch (index) {
+    switch (index - 1) {
+      case -1: // USBshare Hub
+        return "Figma";
       case 0: // Pahrump Realtor
         return "HTML, CSS, JS";
       case 1: // Mums
@@ -424,12 +439,12 @@ export default function GraphicsSection() {
                   fill
                   className="object-cover transition-all duration-500 ease-out group-hover:scale-110"
                   style={
-                    index === 0 || index === 1 || index === 2
+                    index <= 3
                       ? { objectPosition: "center top" }
                       : undefined
                   }
                   sizes="(max-width: 640px) 78vw, 400px"
-                  priority={index < 2}
+                  priority={index < 3}
                   quality={85}
                 />
 
@@ -667,6 +682,16 @@ export default function GraphicsSection() {
                     </span>
                   ))}
                 </div>
+                {graphics[lightboxIndex].figma && (
+                  <a
+                    href={graphics[lightboxIndex].figma}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mb-5 flex w-full items-center justify-center rounded-full bg-white py-3 text-sm font-semibold text-black transition-colors hover:bg-white/85"
+                  >
+                    View in Figma
+                  </a>
+                )}
                 <div className="flex gap-3 pb-10">
                   <button
                     onClick={() => navigateLightbox("prev")}
@@ -708,9 +733,7 @@ export default function GraphicsSection() {
           {/* ── DESKTOP: Full lightbox ── */}
           <div className="relative w-full h-full hidden md:flex">
             {/* Main Image Area */}
-            {lightboxIndex === 0 ||
-            lightboxIndex === 1 ||
-            lightboxIndex === 2 ? (
+            {lightboxIndex <= 3 ? (
               <ScrollArea className="flex-1 relative">
                 <div className="flex items-start justify-center py-8 px-12">
                   <div
@@ -828,6 +851,16 @@ export default function GraphicsSection() {
                 </div>
               </div>
               <div className="space-y-4">
+                {graphics[lightboxIndex].figma && (
+                  <a
+                    href={graphics[lightboxIndex].figma}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex w-full items-center justify-center rounded-full bg-white py-3 text-sm font-semibold text-black transition-colors hover:bg-white/85"
+                  >
+                    View in Figma
+                  </a>
+                )}
                 <div className="text-sm text-white/60">
                   Project {lightboxIndex + 1} of {graphics.length}
                 </div>

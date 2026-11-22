@@ -4,8 +4,8 @@ import { useRef, useEffect, useState } from "react";
 
 const videos = [
   {
-    src: "/assets/hrnexusfinal.mp4",
-    alt: "HRNexus Final",
+    src: "/assets/workrecordly.mp4",
+    alt: "Workrecodly App",
     figma: null,
   },
   {
@@ -13,6 +13,11 @@ const videos = [
     alt: "Rentopia App",
     figma:
       "https://www.figma.com/design/fkT5qCabGS9iQfiY6O5HGs/Rentopia?node-id=0-1&t=RGhUG7jw4XBBgmwV-1",
+  },
+  {
+    src: "/assets/hrnexusfinal.mp4",
+    alt: "HRNexus Final",
+    figma: null,
   },
   {
     src: "/assets/meduforce.mp4",
